@@ -26,6 +26,9 @@ public class User {
     @Column
     private String email;
 
+    @Column
+    private Role role;
+
     @OneToMany(mappedBy = "user")
     List<Expense> expenses = new ArrayList<>();
 
