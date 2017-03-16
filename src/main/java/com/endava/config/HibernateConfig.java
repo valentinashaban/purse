@@ -24,7 +24,7 @@ public class HibernateConfig {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setSchema("purse");
         dataSource.setDriverClassName("org.postgresql.Driver");
-        dataSource.setUrl("jdbc:postgresql://localhost:5432/purse");
+        dataSource.setUrl("jdbc:postgresql://localhost:5432/postgres");
         dataSource.setUsername("postgres");
         dataSource.setPassword("1111");
         return dataSource;
@@ -45,6 +45,8 @@ public class HibernateConfig {
         entityMangerFactory.setDataSource(dataSource());
         entityMangerFactory.setPackagesToScan("com.endava.model");
         entityMangerFactory.setJpaProperties(getHibernateProperties());
+        entityMangerFactory.setJpaVendorAdapter(jpaVendorAdapter());
+        entityMangerFactory.setPersistenceUnitName("purse");
         return entityMangerFactory;
     }
 
