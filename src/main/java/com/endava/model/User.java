@@ -26,7 +26,7 @@ public class User {
     @Column
     private String email;
 
-    @Column
+    @Enumerated(EnumType.STRING)
     private Role role;
 
     @OneToMany(mappedBy = "user")
