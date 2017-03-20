@@ -10,17 +10,14 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import javax.jws.soap.SOAPBinding;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
 
@@ -40,7 +37,7 @@ public class GenDaoImplTest {
 
     @Before
     public void setUp() throws Exception {
-        initMocks(this);
+        //initMocks(this);
     }
 
     @Test
@@ -51,36 +48,33 @@ public class GenDaoImplTest {
 
         genDao.create(user);
 
-        verify(entityManager, times(1)).persist(user);
+        verify(entityManager).persist(user);
     }
 
     @Test
     public void testRead() {
-        User user = createUser();
+        User expectedUser = createUser();
 
-        when(entityManager.find(USER_CLASS, USER_ID)).thenReturn(user);
+        when(entityManager.find(USER_CLASS, USER_ID)).thenReturn(expectedUser);
 
-        genDao.read(USER_ID);
+        User actualUser = genDao.read(USER_ID);
 
         verify(entityManager).find(USER_CLASS, USER_ID);
-        assertEquals(user, genDao.read(USER_ID));
-        assertNotNull(genDao.read(USER_ID));
+        assertEquals(expectedUser, actualUser);
     }
 
     @Test
     public void testReadAll() {
-        List<User> users = createUsers();
-        Query someQuery = entityManager.createQuery("SELECT u FROM User");
+        List<User> expectedUsers = createUsers();
+        Query someQuery = mock(Query.class);
 
-        //NullPointerException. why?
         when(entityManager.createQuery(anyString())).thenReturn(someQuery);
-        when(someQuery.getResultList()).thenReturn(users);
+        when(someQuery.getResultList()).thenReturn(expectedUsers);
 
-        genDao.readAll(USER_CLASS);
+        List<User> actualUsers = genDao.readAll(USER_CLASS);
 
         verify(entityManager).createQuery(anyString());
-        assertEquals(users, genDao.readAll(USER_CLASS));
-        assertNotNull(genDao.readAll(USER_CLASS));
+        assertEquals(expectedUsers, actualUsers);
     }
 
     @Test
@@ -91,20 +85,7 @@ public class GenDaoImplTest {
 
         genDao.update(user);
 
-        verify(entityManager, times(1)).merge(user);
-    }
-
-    @Test
-    public void testUpdateById() {
-        User user = createUser();
-
-        when(entityManager.find(USER_CLASS, USER_ID)).thenReturn(user);
-        when(entityManager.merge(user)).thenReturn(user);
-
-        genDao.updateById(USER_ID);
-
-        verify(entityManager, times(1)).find(USER_CLASS, USER_ID);
-        verify(entityManager, times(1)).merge(ArgumentMatchers.eq(user));
+        verify(entityManager).merge(user);
     }
 
     @Test
@@ -127,8 +108,9 @@ public class GenDaoImplTest {
 
         genDao.deleteById(USER_ID);
 
-        verify(entityManager, times(1)).find(USER_CLASS, USER_ID);
-        verify(entityManager, times(1)).remove(ArgumentMatchers.eq(user));
+        verify(entityManager).find(USER_CLASS, USER_ID);
+        verify(entityManager).remove(ArgumentMatchers.eq(user));
+        verifyNoMoreInteractions(entityManager); //no other methods called
     }
 
     @Test

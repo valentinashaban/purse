@@ -13,7 +13,6 @@ public interface GenDao<T> {
     T read(Long id);
     List<T> readAll(Class<T> type);
     void update(T entity);
-    void updateById(Long id);
     void delete(T entity);
     void deleteById(Long id);
     void deleteList(List<T> entities);
