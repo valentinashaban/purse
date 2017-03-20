@@ -1,10 +1,12 @@
-package com.endava.dao;
+package com.endava.dao.impl;
 
+import com.endava.dao.GenDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.lang.reflect.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,13 +19,10 @@ public class GenDaoImpl<T> implements GenDao<T> {
     @Autowired
     private EntityManager entityManager;
 
-    public GenDaoImpl() {
-        Type t = getClass().getGenericSuperclass();
-        ParameterizedType pt = (ParameterizedType) t;
-        type = (Class) pt.getActualTypeArguments()[0];
+    public GenDaoImpl(Class<T> type) {
+        this.type = type;
     }
 
-    @Transactional
     @Override
     public void create(T entity) {
         entityManager.persist(entity);
@@ -35,8 +34,12 @@ public class GenDaoImpl<T> implements GenDao<T> {
     }
 
     @Override
-    public List<T> readAll() {
-        return null;
+    public List<T> readAll(Class<T> type) {
+        String tableName = type.getName();
+        return entityManager.createQuery(
+                "SELECT e FROM" + tableName)
+                .setParameter(1, type)
+                .getResultList();
     }
 
     @Override

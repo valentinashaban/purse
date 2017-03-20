@@ -11,7 +11,7 @@ import java.util.List;
 public interface GenDao<T> {
     void create(T entity);
     T read(Long id);
-    List<T> readAll();
+    List<T> readAll(Class<T> type);
     void update(T entity);
     void updateById(Long id);
     void delete(T entity);
