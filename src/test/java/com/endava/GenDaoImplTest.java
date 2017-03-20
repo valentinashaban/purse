@@ -12,12 +12,14 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import javax.jws.soap.SOAPBinding;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
@@ -62,11 +64,23 @@ public class GenDaoImplTest {
 
         verify(entityManager).find(USER_CLASS, USER_ID);
         assertEquals(user, genDao.read(USER_ID));
+        assertNotNull(genDao.read(USER_ID));
     }
 
-    @Test   //How to test readAll?
+    @Test
     public void testReadAll() {
+        List<User> users = createUsers();
+        Query someQuery = entityManager.createQuery("SELECT u FROM User");
 
+        //NullPointerException. why?
+        when(entityManager.createQuery(anyString())).thenReturn(someQuery);
+        when(someQuery.getResultList()).thenReturn(users);
+
+        genDao.readAll(USER_CLASS);
+
+        verify(entityManager).createQuery(anyString());
+        assertEquals(users, genDao.readAll(USER_CLASS));
+        assertNotNull(genDao.readAll(USER_CLASS));
     }
 
     @Test

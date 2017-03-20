@@ -2,11 +2,8 @@ package com.endava.dao.impl;
 
 import com.endava.dao.GenDao;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-import java.lang.reflect.*;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -38,7 +35,6 @@ public class GenDaoImpl<T> implements GenDao<T> {
         String tableName = type.getName();
         return entityManager.createQuery(
                 "SELECT e FROM" + tableName)
-                .setParameter(1, type)
                 .getResultList();
     }
 
