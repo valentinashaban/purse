@@ -43,6 +43,7 @@ $RECYCLE.BIN/
 hs_err_pid*
 .idea
 *.iml
+purse.iml
 out
 gen### Eclipse template
 .metadata
