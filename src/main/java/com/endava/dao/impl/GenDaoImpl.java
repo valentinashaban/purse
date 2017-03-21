@@ -4,6 +4,9 @@ import com.endava.dao.GenDao;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.List;
 
 /**
@@ -31,11 +34,13 @@ public class GenDaoImpl<T> implements GenDao<T> {
     }
 
     @Override
-    public List<T> readAll(Class<T> type) {
-        String tableName = type.getName();
-        return entityManager.createQuery(
-                "SELECT e FROM" + tableName)
-                .getResultList();
+    public List<T> readAll() {
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<T> query = builder.createQuery(type);
+        Root<T> root = query.from(type);
+        query.select(root);
+
+        return entityManager.createQuery(query).getResultList();
     }
 
     @Override
@@ -56,8 +61,7 @@ public class GenDaoImpl<T> implements GenDao<T> {
 
     @Override
     public void deleteList(List<T> entities) {
-        for (int i = 0; i < entities.size(); i++)
-            entityManager.remove(entities.get(i));
+        for (T entity : entities) entityManager.remove(entity);
     }
 
     @Override

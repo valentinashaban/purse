@@ -12,10 +12,13 @@
         <spring.version>4.3.6.RELEASE</spring.version>
         <hibernate.version>5.2.8.Final</hibernate.version>
         <hibernate.EM.version>5.2.3.Final</hibernate.EM.version>
+        <validator.version>5.3.4.Final</validator.version>
+        <validator.EL.version>3.0.1-b08</validator.EL.version>
         <postgres.version>9.4.1212</postgres.version>
         <lombok.version>1.16.12</lombok.version>
         <junit.version>4.12</junit.version>
         <mockito.version>2.7.12</mockito.version>
+        <joda.version>2.9.7</joda.version>
 
         <java.version>1.8</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
@@ -54,6 +57,18 @@
         </dependency>
 
         <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>${validator.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.glassfish</groupId>
+            <artifactId>javax.el</artifactId>
+            <version>${validator.EL.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <version>${postgres.version}</version>
@@ -75,6 +90,12 @@
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
             <version>${mockito.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>${joda.version}</version>
         </dependency>
 
     </dependencies>
