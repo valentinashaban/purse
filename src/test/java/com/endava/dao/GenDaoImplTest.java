@@ -1,8 +1,8 @@
-package com.endava;
+package com.endava.dao;
 
 import com.endava.dao.impl.GenDaoImpl;
 import com.endava.model.User;
-import org.junit.Before;
+import org.hibernate.Criteria;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentMatchers;
@@ -12,14 +12,16 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.*;
-import static org.mockito.MockitoAnnotations.initMocks;
 
 /**
  * Created by vsaban on 3/17/2017.
@@ -34,11 +36,6 @@ public class GenDaoImplTest {
 
     @Mock
     private EntityManager entityManager;
-
-    @Before
-    public void setUp() throws Exception {
-        //initMocks(this);
-    }
 
     @Test
     public void testCreate() {
@@ -63,17 +60,29 @@ public class GenDaoImplTest {
         assertEquals(expectedUser, actualUser);
     }
 
-    @Test
+    @Test //TODO: change this test to work
     public void testReadAll() {
         List<User> expectedUsers = createUsers();
-        Query someQuery = mock(Query.class);
 
-        when(entityManager.createQuery(anyString())).thenReturn(someQuery);
-        when(someQuery.getResultList()).thenReturn(expectedUsers);
+        CriteriaBuilder builder = mock(CriteriaBuilder.class);
+        CriteriaQuery<User> criteriaQuery = mock(CriteriaQuery.class);
+        Root<User> root = mock(Root.class);
+        TypedQuery<User> typedQuery = mock(TypedQuery.class);
 
-        List<User> actualUsers = genDao.readAll(USER_CLASS);
+        when(entityManager.getCriteriaBuilder()).thenReturn(builder);
+        when(builder.createQuery(USER_CLASS)).thenReturn(criteriaQuery);
+        when(criteriaQuery.from(USER_CLASS)).thenReturn(root);
+        when(entityManager.createQuery(criteriaQuery)).thenReturn(typedQuery);
+        when(typedQuery.getResultList()).thenReturn(expectedUsers);
 
-        verify(entityManager).createQuery(anyString());
+        List<User> actualUsers = genDao.readAll();
+
+        verify(entityManager).getCriteriaBuilder();
+        verify(builder).createQuery(USER_CLASS);
+        verify(criteriaQuery).from(USER_CLASS);
+        verify(entityManager).createQuery(criteriaQuery);
+        verify(typedQuery).getResultList();
+
         assertEquals(expectedUsers, actualUsers);
     }
 
@@ -152,12 +161,11 @@ public class GenDaoImplTest {
     }
 
     private List<User> createUsers() {
-        List<User> users = Arrays.asList(
+
+        return Arrays.asList(
                 createUser("valentina", "2222", "valentina@endava.com"),
                 createUser("natalia", "3333", "natalia@endava.com"),
                 createUser("olga", "4444", "olga@endava.com"));
-
-        return users;
     }
 
 }

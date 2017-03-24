@@ -3,6 +3,7 @@ package com.endava.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 /**
  * Created by vsaban on 3/15/2017.
@@ -15,6 +16,7 @@ public class Wherefrom {
     @Column(name = "id_wherefrom")
     private Long id;
 
+    @NotNull
     @Column
     private String name;
 
