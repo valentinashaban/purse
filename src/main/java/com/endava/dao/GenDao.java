@@ -8,7 +8,6 @@ import java.util.List;
  * Created by vsaban on 3/16/2017.
  */
 
-@Repository
 public interface GenDao<T> {
     void create(T entity);
     T read(Long id);

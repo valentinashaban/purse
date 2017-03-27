@@ -1,12 +1,14 @@
 package com.endava.dao.impl;
 
 import com.endava.dao.GenDao;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.List;
 
 /**
@@ -16,8 +18,15 @@ public class GenDaoImpl<T> implements GenDao<T> {
 
     private final Class<T> type;
 
-    @Autowired
+    @PersistenceContext
     private EntityManager entityManager;
+
+    @SuppressWarnings({"unchecked"})
+    GenDaoImpl() {
+        Type t = getClass().getGenericSuperclass();
+        ParameterizedType pt = (ParameterizedType) t;
+        type = (Class) pt.getActualTypeArguments()[0];
+    }
 
     public GenDaoImpl(Class<T> type) {
         this.type = type;

@@ -65,8 +65,7 @@ public class IncomeExpenseServiceImplTest {
 
     @After
     public void tearDown() {
-        verifyNoMoreInteractions(incomeDao);
-        verifyNoMoreInteractions(expenseDao);
+        verifyNoMoreInteractions(incomeDao, expenseDao);
     }
 
     @Test

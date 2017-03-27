@@ -2,7 +2,7 @@ package com.endava.dao;
 
 import com.endava.dao.impl.GenDaoImpl;
 import com.endava.model.User;
-import org.hibernate.Criteria;
+import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentMatchers;
@@ -11,12 +11,10 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -36,6 +34,11 @@ public class GenDaoImplTest {
 
     @Mock
     private EntityManager entityManager;
+
+    @After
+    public void tearDown() {
+        verifyNoMoreInteractions(entityManager);
+    }
 
     @Test
     public void testCreate() {
@@ -60,7 +63,7 @@ public class GenDaoImplTest {
         assertEquals(expectedUser, actualUser);
     }
 
-    @Test //TODO: change this test to work
+    @Test
     public void testReadAll() {
         List<User> expectedUsers = createUsers();
 

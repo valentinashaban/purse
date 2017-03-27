@@ -6,6 +6,5 @@ import org.springframework.stereotype.Repository;
 /**
  * Created by vsaban on 3/16/2017.
  */
-@Repository
 public interface UserDao extends GenDao<User> {
 }
