@@ -17,6 +17,5 @@ public class Domain {
     private Long id;
 
     @NotNull
-    @Column
     private String name;
 }

@@ -15,12 +15,14 @@
         <validator.version>5.3.4.Final</validator.version>
         <validator.EL.version>3.0.1-b08</validator.EL.version>
         <postgres.version>9.4.1212</postgres.version>
+        <h2.version>1.4.194</h2.version>
         <lombok.version>1.16.12</lombok.version>
         <junit.version>4.12</junit.version>
         <mockito.version>2.7.12</mockito.version>
         <joda.version>2.9.7</joda.version>
         <servlet.version>3.1.0</servlet.version>
         <jstl.version>1.2</jstl.version>
+        <jackson.version>2.5.0</jackson.version>
         <jetty.version>9.4.2.v20170220</jetty.version>
         <maven.compiler.version>3.1</maven.compiler.version>
         <java.version>1.8</java.version>
@@ -52,6 +54,12 @@
         </dependency>
 
         <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
             <version>${hibernate.version}</version>
@@ -79,6 +87,14 @@
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <version>${postgres.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>${h2.version}</version>
+            <scope>test</scope>
         </dependency>
 
         <dependency>
@@ -115,6 +131,12 @@
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <version>${servlet.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
         </dependency>
     </dependencies>
 

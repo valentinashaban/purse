@@ -1,18 +1,21 @@
 package com.endava.model;
 
-import lombok.Data;
+import com.endava.enums.Role;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by vsaban on 3/15/2017.
  */
-@Data
+@Setter @Getter
+@EqualsAndHashCode
 @Entity(name = "users")
 public class User {
     @Id
@@ -22,16 +25,13 @@ public class User {
 
     @NotNull
     @Size(min = 5, max = 20)
-    @Column
     private String login;
 
     @NotNull
     @Size(min = 6, max = 10)
-    @Column
     private String password;
 
     @Email
-    @Column
     private String email;
 
     @NotNull
@@ -39,8 +39,56 @@ public class User {
     private Role role;
 
     @OneToMany(mappedBy = "user")
-    List<Expense> expenses = new ArrayList<>();
+    List<MoneyTransfer> moneyTransfers;
 
-    @OneToMany(mappedBy = "user")
-    List<Income> incomes = new ArrayList<>();
+    public User() {}
+
+    private User(String login, String password, String email, Role role, List<MoneyTransfer> moneyTransfers) {
+        this.login = login;
+        this.password = password;
+        this.email = email;
+        this.role = role;
+        this.moneyTransfers = moneyTransfers;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static class Builder {
+        private String login;
+        private String password;
+        private String email;
+        private Role role;
+        List<MoneyTransfer> moneyTransfers;
+
+        public Builder withLogin(String login) {
+            this.login = login;
+            return this;
+        }
+
+        public Builder withPassword(String password) {
+            this.password = password;
+            return this;
+        }
+
+        public Builder withEmail(String email) {
+            this.email = email;
+            return this;
+        }
+
+        public Builder withRole(Role role) {
+            this.role = role;
+            return this;
+        }
+
+        public Builder withMoneyTransfers(List<MoneyTransfer> moneyTransfers) {
+            this.moneyTransfers = moneyTransfers;
+            return this;
+        }
+
+        public User build() {
+            return new User(login, password, email, role, moneyTransfers);
+        }
+    }
 }

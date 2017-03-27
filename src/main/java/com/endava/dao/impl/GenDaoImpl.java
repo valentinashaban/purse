@@ -70,7 +70,7 @@ public class GenDaoImpl<T> implements GenDao<T> {
 
     @Override
     public void deleteList(List<T> entities) {
-        for (T entity : entities) entityManager.remove(entity);
+        entities.forEach(entityManager::remove);
     }
 
     @Override
