@@ -17,7 +17,6 @@ public class Wherefrom {
     private Long id;
 
     @NotNull
-    @Column
     private String name;
 
 }

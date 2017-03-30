@@ -1,4 +1,4 @@
-package com.endava.model;
+package com.endava.enums;
 
 /**
  * Created by vsaban on 3/16/2017.
