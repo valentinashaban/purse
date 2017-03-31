@@ -71,13 +71,13 @@ public class MoneyTransferServiceImplTest {
 
     @Test
     public void testAddMoneyTransferForNotNull() {
-        doNothing().when(moneyTransferDao).create(MONEY_TRANSFER);
+        when(moneyTransferDao.persist(MONEY_TRANSFER)).thenReturn(MONEY_TRANSFER);
 
         constraintViolationsMoneyTransfer = VALIDATOR.validate(MONEY_TRANSFER);
 
         moneyTransferService.addMoneyTransfer(MONEY_TRANSFER);
 
-        verify(moneyTransferDao).create(MONEY_TRANSFER);
+        verify(moneyTransferDao).persist(MONEY_TRANSFER);
         assertEquals(0, constraintViolationsMoneyTransfer.size());
     }
 
@@ -136,13 +136,13 @@ public class MoneyTransferServiceImplTest {
 
     @Test
     public void testUpdateMoneyTransferCorrectData() {
-        doNothing().when(moneyTransferDao).update(MONEY_TRANSFER);
+        when(moneyTransferDao.merge(MONEY_TRANSFER)).thenReturn(MONEY_TRANSFER);
 
         constraintViolationsMoneyTransfer = VALIDATOR.validate(MONEY_TRANSFER);
 
         moneyTransferService.updateMoneyTransfer(MONEY_TRANSFER);
 
-        verify(moneyTransferDao).update(MONEY_TRANSFER);
+        verify(moneyTransferDao).merge(MONEY_TRANSFER);
         assertEquals(0, constraintViolationsMoneyTransfer.size());
     }
 

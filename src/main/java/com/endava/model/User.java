@@ -10,7 +10,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Created by vsaban on 3/15/2017.
@@ -21,7 +20,8 @@ import java.util.Objects;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name="users_id_seq", allocationSize = 1, sequenceName = "users_id_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,  generator="users_id_seq")
     @Column(name = "id_user")
     private Long id;
 

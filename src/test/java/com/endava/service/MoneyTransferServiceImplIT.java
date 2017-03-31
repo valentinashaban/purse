@@ -5,8 +5,6 @@ import com.endava.dao.UserDao;
 import com.endava.dao.WherefromDao;
 import com.endava.model.MoneyTransfer;
 import com.endava.model.User;
-import com.endava.model.Wherefrom;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,10 +37,10 @@ public class MoneyTransferServiceImplIT {
     public void testAddMoneyTransfer() {
         User user = createUser();
 
-        User persistedUser = userDao.create(user);
+        User persistedUser = userDao.persist(user);
         assertNotNull(persistedUser);
 
-        wherefromDao.create(WHEREFROM_CASH);
+        wherefromDao.persist(WHEREFROM_CASH);
 
 
         MONEY_TRANSFER.setUser(persistedUser);

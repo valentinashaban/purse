@@ -5,10 +5,8 @@ import com.endava.model.Domain;
 import com.endava.model.MoneyTransfer;
 import com.endava.model.Wherefrom;
 import com.endava.service.MoneyTransferService;
-import org.joda.time.DateTimeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -38,7 +36,7 @@ public class MoneyTransferServiceImpl implements MoneyTransferService {
 
     @Override
     public MoneyTransfer addMoneyTransfer(@Valid @NotNull MoneyTransfer moneyTransfer) {
-        moneyTransferDao.create(moneyTransfer);
+        moneyTransferDao.persist(moneyTransfer);
         return moneyTransfer;
     }
 
@@ -55,7 +53,9 @@ public class MoneyTransferServiceImpl implements MoneyTransferService {
     }
 
     @Override
-    public void updateMoneyTransfer(@Valid MoneyTransfer moneyTransfer) { moneyTransferDao.update(moneyTransfer); }
+    public MoneyTransfer updateMoneyTransfer(@Valid MoneyTransfer moneyTransfer) {
+        return moneyTransferDao.merge(moneyTransfer);
+    }
 
     public MoneyTransfer getMoneyTransferById(@NotNull Long id) {
         return moneyTransferDao.read(id);

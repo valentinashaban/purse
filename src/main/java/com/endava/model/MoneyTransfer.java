@@ -24,7 +24,8 @@ import static com.endava.enums.MoneyTransferType.INCOME;
 public class MoneyTransfer {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name="transfers_id_seq", allocationSize = 1, sequenceName = "transfers_id_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,  generator="transfers_id_seq")
     @Column(name = "id_transfer")
     private Long id;
 
