@@ -45,7 +45,7 @@ public class GenDaoImplTest {
     public void testCreate() {
         doNothing().when(entityManager).persist(USER);
 
-        genDao.create(USER);
+        genDao.persist(USER);
 
         verify(entityManager).persist(USER);
     }
@@ -91,7 +91,7 @@ public class GenDaoImplTest {
     public void testUpdate() {
         when(entityManager.merge(USER)).thenReturn(USER);
 
-        genDao.update(USER);
+        genDao.merge(USER);
 
         verify(entityManager).merge(USER);
     }
