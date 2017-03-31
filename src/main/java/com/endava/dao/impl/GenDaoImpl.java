@@ -33,11 +33,9 @@ public class GenDaoImpl<T> implements GenDao<T> {
         this.type = type;
     }
 
-    @Transactional
     @Override
-    public T create(T entity) {
+    public T persist(T entity) {
         entityManager.persist(entity);
-        entityManager.flush();
         return entity;
     }
 
@@ -56,10 +54,9 @@ public class GenDaoImpl<T> implements GenDao<T> {
         return entityManager.createQuery(query).getResultList();
     }
 
-    @Transactional
     @Override
-    public void update(T entity) {
-        entityManager.merge(entity);
+    public T merge(T entity) {
+        return entityManager.merge(entity);
     }
 
     @Transactional

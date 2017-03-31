@@ -19,7 +19,7 @@ public interface MoneyTransferService {
 
     void deleteMoneyTransferById(Long id);
 
-    void updateMoneyTransfer(MoneyTransfer moneyTransfer);
+    MoneyTransfer updateMoneyTransfer(MoneyTransfer moneyTransfer);
 
     MoneyTransfer getMoneyTransferById(Long id);
 
