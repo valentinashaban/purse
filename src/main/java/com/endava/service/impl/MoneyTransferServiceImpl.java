@@ -7,6 +7,8 @@ import com.endava.model.Wherefrom;
 import com.endava.service.MoneyTransferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -35,17 +37,20 @@ public class MoneyTransferServiceImpl implements MoneyTransferService {
     }
 
     @Override
+    @Transactional
     public MoneyTransfer addMoneyTransfer(@Valid @NotNull MoneyTransfer moneyTransfer) {
         moneyTransferDao.persist(moneyTransfer);
         return moneyTransfer;
     }
 
     @Override
+    @Transactional
     public void deleteMoneyTransfer(@Valid @NotNull MoneyTransfer moneyTransfer) {
         moneyTransferDao.delete(moneyTransfer);
     }
 
     @Override
+    @Transactional(propagation = Propagation.MANDATORY)
     public void deleteMoneyTransferById(@NotNull Long id) {
         Optional.of(id)
                 .filter(i -> i > 0)
@@ -53,10 +58,12 @@ public class MoneyTransferServiceImpl implements MoneyTransferService {
     }
 
     @Override
+    @Transactional
     public MoneyTransfer updateMoneyTransfer(@Valid MoneyTransfer moneyTransfer) {
         return moneyTransferDao.merge(moneyTransfer);
     }
 
+    @Override
     public MoneyTransfer getMoneyTransferById(@NotNull Long id) {
         return moneyTransferDao.read(id);
     }
@@ -104,8 +111,18 @@ public class MoneyTransferServiceImpl implements MoneyTransferService {
                 .collect(Collectors.toList());
     }
 
-    @Override
-    public List<MoneyTransfer> getMoneyTransferByWherefrom(@Valid Wherefrom wherefrom) {
+    public List<MoneyTransfer> getMoneyTransferByCategory(Object category) {
+        Optional.ofNullable(category).orElseThrow(IllegalArgumentException::new);
+
+        if (category instanceof Wherefrom)
+            return this.getMoneyTransferByWherefrom((Wherefrom)category);
+        else if (category instanceof Domain)
+            return this.getMoneyTransferByDomain((Domain)category);
+        else
+            throw new IllegalArgumentException();
+    }
+
+    private List<MoneyTransfer> getMoneyTransferByWherefrom(@Valid Wherefrom wherefrom) {
 
         Optional.ofNullable(wherefrom).orElseThrow(IllegalArgumentException::new);
 
@@ -114,8 +131,7 @@ public class MoneyTransferServiceImpl implements MoneyTransferService {
                 .collect(Collectors.toList());
     }
 
-    @Override
-    public List<MoneyTransfer> getMoneyTransferByDomain(@Valid Domain domain) {
+    private List<MoneyTransfer> getMoneyTransferByDomain(@Valid Domain domain) {
 
         Optional.ofNullable(domain).orElseThrow(IllegalArgumentException::new);
 

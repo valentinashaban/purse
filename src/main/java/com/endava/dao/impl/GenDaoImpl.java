@@ -23,7 +23,7 @@ public class GenDaoImpl<T> implements GenDao<T> {
     private EntityManager entityManager;
 
     @SuppressWarnings({"unchecked"})
-    GenDaoImpl() {
+    public GenDaoImpl() {
         Type t = getClass().getGenericSuperclass();
         ParameterizedType pt = (ParameterizedType) t;
         type = (Class) pt.getActualTypeArguments()[0];

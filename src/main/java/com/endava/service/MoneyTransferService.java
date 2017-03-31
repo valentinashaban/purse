@@ -33,8 +33,6 @@ public interface MoneyTransferService {
 
     List<MoneyTransfer> getMoneyTransferMoreExpensiveThan(Double amount);
 
-    List<MoneyTransfer> getMoneyTransferByWherefrom(Wherefrom wherefrom);
-
-    List<MoneyTransfer> getMoneyTransferByDomain(Domain domain);
+    List<MoneyTransfer> getMoneyTransferByCategory(Object category);
 
 }

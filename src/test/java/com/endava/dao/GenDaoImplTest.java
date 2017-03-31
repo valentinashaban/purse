@@ -63,8 +63,6 @@ public class GenDaoImplTest {
 
     @Test
     public void testReadAll() {
-
-
         CriteriaBuilder builder = mock(CriteriaBuilder.class);
         CriteriaQuery<User> criteriaQuery = mock(CriteriaQuery.class);
         Root<User> root = mock(Root.class);

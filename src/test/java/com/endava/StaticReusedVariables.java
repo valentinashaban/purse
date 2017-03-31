@@ -26,6 +26,9 @@ public class StaticReusedVariables {
     public final static long DATE_FOUR = 1472677200000L;
     public final static Date CURRENT_FIXED_DATE = new Date(CURRENT_MILLIS);
 
+    public final static User USER1 = createUser();
+    public final static List<User> USERS = createUsers();
+
     public final static Wherefrom WHEREFROM_CASH = createWherefrom(WHEREFROM_CASH_NAME);
     public final static Wherefrom WHEREFROM_SALARY = createWherefrom(WHEREFROM_SALARY_NAME);
 
@@ -35,8 +38,6 @@ public class StaticReusedVariables {
     public final static MoneyTransfer MONEY_TRANSFER3 = createMoneyTransfer(INCOME, 1000.0, WHEREFROM_SALARY, new Date(DATE_FOUR));//1.09.2016
 
     public final static List<MoneyTransfer> MONEY_TRANSFERS = Arrays.asList(MONEY_TRANSFER, MONEY_TRANSFER1, MONEY_TRANSFER2, MONEY_TRANSFER3);
-    public final static User USER1 = createUser();
-    public final static List<User> USERS = createUsers();
 
     public static User createUser() {
         return User.builder()
@@ -71,12 +72,14 @@ public class StaticReusedVariables {
     }
 
     public static MoneyTransfer createMoneyTransfer(MoneyTransferType type, Double amount, Wherefrom wherefrom, Date date) {
+        User user = User.builder().withLogin("valera").withPassword("111111").withRole(USER).build();
+
         return MoneyTransfer.builder()
                             .withType(type)
                             .withAmount(amount)
                             .withWherefrom(wherefrom)
                             .withDate(date)
-                            .withUser(createUser())
+                            .withUser(USER1)
                             .build();
     }
 }
