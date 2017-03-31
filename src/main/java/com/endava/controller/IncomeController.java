@@ -21,7 +21,7 @@ public class IncomeController {
 
     @GetMapping("/all-incomes")
     public List<MoneyTransfer> viewAllIncomes() {
-        return moneyService.getMoneyTransfer();
+        return moneyService.getMoneyTransfers();
     }
 
 }

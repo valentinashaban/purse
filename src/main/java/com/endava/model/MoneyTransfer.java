@@ -25,7 +25,7 @@ public class MoneyTransfer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_money")
+    @Column(name = "id_transfer")
     private Long id;
 
     @NotNull

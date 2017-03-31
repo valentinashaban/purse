@@ -18,5 +18,4 @@ public class Wherefrom {
 
     @NotNull
     private String name;
-
 }

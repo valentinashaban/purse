@@ -2,6 +2,7 @@ package com.endava.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
@@ -15,12 +16,16 @@ import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 /**
- * Created by vsaban on 3/15/2017.
+ * Created by vsaban on 3/30/2017.
  */
 @Configuration
+@ComponentScan(basePackages = {
+        "com.endava.service",
+        "com.endava.dao"
+})
 @PropertySource("classpath:database.properties")
 @EnableTransactionManagement
-public class HibernateConfig {
+public class IntegrationTestConfig {
 
     @Autowired
     private Environment env;
@@ -60,5 +65,4 @@ public class HibernateConfig {
         transactionManager.setEntityManagerFactory(entityManagerFactory);
         return transactionManager;
     }
-
 }

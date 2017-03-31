@@ -1,6 +1,7 @@
 package com.endava.dao.impl;
 
 import com.endava.dao.GenDao;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -32,9 +33,12 @@ public class GenDaoImpl<T> implements GenDao<T> {
         this.type = type;
     }
 
+    @Transactional
     @Override
-    public void create(T entity) {
+    public T create(T entity) {
         entityManager.persist(entity);
+        entityManager.flush();
+        return entity;
     }
 
     @Override
@@ -52,11 +56,13 @@ public class GenDaoImpl<T> implements GenDao<T> {
         return entityManager.createQuery(query).getResultList();
     }
 
+    @Transactional
     @Override
     public void update(T entity) {
         entityManager.merge(entity);
     }
 
+    @Transactional
     @Override
     public void delete(T entity) {
         entityManager.remove(entity);
@@ -68,6 +74,7 @@ public class GenDaoImpl<T> implements GenDao<T> {
         entityManager.remove(entity);
     }
 
+    @Transactional
     @Override
     public void deleteList(List<T> entities) {
         entities.forEach(entityManager::remove);

@@ -7,7 +7,7 @@ import java.util.List;
  */
 
 public interface GenDao<T> {
-    void create(T entity);
+    T create(T entity);
     T read(Long id);
     List<T> readAll();
     void update(T entity);

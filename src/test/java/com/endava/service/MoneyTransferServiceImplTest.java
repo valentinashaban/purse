@@ -21,6 +21,7 @@ import static com.endava.StaticReusedVariables.*;
 import static com.endava.enums.MoneyTransferType.INCOME;
 import static javax.validation.Validation.buildDefaultValidatorFactory;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.*;
 
 /**
@@ -165,6 +166,31 @@ public class MoneyTransferServiceImplTest {
         assertEquals(1, constraintViolationsMoneyTransfer.size());
         assertEquals("must be in the past",
                 constraintViolationsMoneyTransfer.iterator().next().getMessage());
+    }
+
+    @Test
+    public void testGetMoneyTransferById() {
+        Long id = 1L;
+        MONEY_TRANSFER.setId(id);
+
+        when(moneyTransferDao.read(id)).thenReturn(MONEY_TRANSFER);
+
+        MoneyTransfer actualMoneyTransfer = moneyTransferService.getMoneyTransferById(id);
+
+        verify(moneyTransferDao).read(id);
+        assertEquals(MONEY_TRANSFER, actualMoneyTransfer);
+    }
+
+    @Test
+    public void testGetMoneyTransferByIncorrectId() {
+        Long id = -12L;
+
+        when(moneyTransferDao.read(id)).thenReturn(null);
+
+        MoneyTransfer actualMoneyTransfer = moneyTransferService.getMoneyTransferById(id);
+
+        verify(moneyTransferDao).read(id);
+        assertNull(actualMoneyTransfer);
     }
 
     @Test

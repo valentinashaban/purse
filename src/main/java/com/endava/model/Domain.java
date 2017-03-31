@@ -11,6 +11,7 @@ import javax.validation.constraints.NotNull;
 @Data
 @Entity(name = "domains")
 public class Domain {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_domain")

@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 import static com.endava.enums.MoneyTransferType.INCOME;
+import static com.endava.enums.Role.USER;
 
 /**
  * Created by vsaban on 3/29/2017.
@@ -34,13 +35,15 @@ public class StaticReusedVariables {
     public final static MoneyTransfer MONEY_TRANSFER3 = createMoneyTransfer(INCOME, 1000.0, WHEREFROM_SALARY, new Date(DATE_FOUR));//1.09.2016
 
     public final static List<MoneyTransfer> MONEY_TRANSFERS = Arrays.asList(MONEY_TRANSFER, MONEY_TRANSFER1, MONEY_TRANSFER2, MONEY_TRANSFER3);
+    public final static User USER1 = createUser();
     public final static List<User> USERS = createUsers();
 
     public static User createUser() {
         return User.builder()
                    .withLogin("valera")
-                   .withPassword("1111")
+                   .withPassword("111111")
                    .withEmail("valera@endava.com")
+                   .withRole(USER)
                    .build();
     }
 
@@ -49,6 +52,7 @@ public class StaticReusedVariables {
                    .withLogin(login)
                    .withPassword(password)
                    .withEmail(email)
+                   .withRole(USER)
                    .build();
     }
 

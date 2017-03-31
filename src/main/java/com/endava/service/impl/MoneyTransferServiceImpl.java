@@ -36,19 +36,17 @@ public class MoneyTransferServiceImpl implements MoneyTransferService {
         this.moneyTransferDao = moneyTransferDao;
     }
 
-    @Transactional
     @Override
-    public void addMoneyTransfer(@Valid @NotNull MoneyTransfer moneyTransfer) {
+    public MoneyTransfer addMoneyTransfer(@Valid @NotNull MoneyTransfer moneyTransfer) {
         moneyTransferDao.create(moneyTransfer);
+        return moneyTransfer;
     }
 
-    @Transactional
     @Override
     public void deleteMoneyTransfer(@Valid @NotNull MoneyTransfer moneyTransfer) {
         moneyTransferDao.delete(moneyTransfer);
     }
 
-    @Transactional
     @Override
     public void deleteMoneyTransferById(@NotNull Long id) {
         Optional.of(id)
@@ -56,14 +54,15 @@ public class MoneyTransferServiceImpl implements MoneyTransferService {
                 .ifPresent(i -> moneyTransferDao.deleteById(i));
     }
 
-    @Transactional
     @Override
-    public void updateMoneyTransfer(@Valid MoneyTransfer moneyTransfer) {
-        moneyTransferDao.update(moneyTransfer);
+    public void updateMoneyTransfer(@Valid MoneyTransfer moneyTransfer) { moneyTransferDao.update(moneyTransfer); }
+
+    public MoneyTransfer getMoneyTransferById(@NotNull Long id) {
+        return moneyTransferDao.read(id);
     }
 
     @Override
-    public List<MoneyTransfer> getMoneyTransfer() {
+    public List<MoneyTransfer> getMoneyTransfers() {
         return moneyTransferDao.readAll();
     }
 
