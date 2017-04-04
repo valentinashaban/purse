@@ -1,6 +1,7 @@
 package com.endava.dao.impl;
 
 import com.endava.dao.GenDao;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -22,7 +23,7 @@ public class GenDaoImpl<T> implements GenDao<T> {
     private EntityManager entityManager;
 
     @SuppressWarnings({"unchecked"})
-    GenDaoImpl() {
+    public GenDaoImpl() {
         Type t = getClass().getGenericSuperclass();
         ParameterizedType pt = (ParameterizedType) t;
         type = (Class) pt.getActualTypeArguments()[0];
@@ -33,8 +34,9 @@ public class GenDaoImpl<T> implements GenDao<T> {
     }
 
     @Override
-    public void create(T entity) {
+    public T persist(T entity) {
         entityManager.persist(entity);
+        return entity;
     }
 
     @Override
@@ -53,10 +55,11 @@ public class GenDaoImpl<T> implements GenDao<T> {
     }
 
     @Override
-    public void update(T entity) {
-        entityManager.merge(entity);
+    public T merge(T entity) {
+        return entityManager.merge(entity);
     }
 
+    @Transactional
     @Override
     public void delete(T entity) {
         entityManager.remove(entity);
@@ -68,6 +71,7 @@ public class GenDaoImpl<T> implements GenDao<T> {
         entityManager.remove(entity);
     }
 
+    @Transactional
     @Override
     public void deleteList(List<T> entities) {
         entities.forEach(entityManager::remove);

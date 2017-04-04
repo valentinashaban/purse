@@ -17,11 +17,11 @@ import java.util.List;
 public class IncomeController {
 
     @Autowired
-    private MoneyTransferService moneyService;
+    private MoneyTransferService moneyTransferService;
 
     @GetMapping("/all-incomes")
     public List<MoneyTransfer> viewAllIncomes() {
-        return moneyService.getMoneyTransfer();
+        return moneyTransferService.getMoneyTransfers();
     }
 
 }

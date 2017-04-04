@@ -5,9 +5,9 @@ import com.endava.model.Domain;
 import com.endava.model.MoneyTransfer;
 import com.endava.model.Wherefrom;
 import com.endava.service.MoneyTransferService;
-import org.joda.time.DateTimeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.validation.Valid;
@@ -36,34 +36,40 @@ public class MoneyTransferServiceImpl implements MoneyTransferService {
         this.moneyTransferDao = moneyTransferDao;
     }
 
-    @Transactional
     @Override
-    public void addMoneyTransfer(@Valid @NotNull MoneyTransfer moneyTransfer) {
-        moneyTransferDao.create(moneyTransfer);
+    @Transactional
+    public MoneyTransfer addMoneyTransfer(@Valid @NotNull MoneyTransfer moneyTransfer) {
+        moneyTransferDao.persist(moneyTransfer);
+        return moneyTransfer;
     }
 
-    @Transactional
     @Override
+    @Transactional
     public void deleteMoneyTransfer(@Valid @NotNull MoneyTransfer moneyTransfer) {
         moneyTransferDao.delete(moneyTransfer);
     }
 
-    @Transactional
     @Override
+    @Transactional(propagation = Propagation.MANDATORY)
     public void deleteMoneyTransferById(@NotNull Long id) {
         Optional.of(id)
                 .filter(i -> i > 0)
                 .ifPresent(i -> moneyTransferDao.deleteById(i));
     }
 
-    @Transactional
     @Override
-    public void updateMoneyTransfer(@Valid MoneyTransfer moneyTransfer) {
-        moneyTransferDao.update(moneyTransfer);
+    @Transactional
+    public MoneyTransfer updateMoneyTransfer(@Valid MoneyTransfer moneyTransfer) {
+        return moneyTransferDao.merge(moneyTransfer);
     }
 
     @Override
-    public List<MoneyTransfer> getMoneyTransfer() {
+    public MoneyTransfer getMoneyTransferById(@NotNull Long id) {
+        return moneyTransferDao.read(id);
+    }
+
+    @Override
+    public List<MoneyTransfer> getMoneyTransfers() {
         return moneyTransferDao.readAll();
     }
 
@@ -105,8 +111,18 @@ public class MoneyTransferServiceImpl implements MoneyTransferService {
                 .collect(Collectors.toList());
     }
 
-    @Override
-    public List<MoneyTransfer> getMoneyTransferByWherefrom(@Valid Wherefrom wherefrom) {
+    public List<MoneyTransfer> getMoneyTransferByCategory(Object category) {
+        Optional.ofNullable(category).orElseThrow(IllegalArgumentException::new);
+
+        if (category instanceof Wherefrom)
+            return this.getMoneyTransferByWherefrom((Wherefrom)category);
+        else if (category instanceof Domain)
+            return this.getMoneyTransferByDomain((Domain)category);
+        else
+            throw new IllegalArgumentException();
+    }
+
+    private List<MoneyTransfer> getMoneyTransferByWherefrom(@Valid Wherefrom wherefrom) {
 
         Optional.ofNullable(wherefrom).orElseThrow(IllegalArgumentException::new);
 
@@ -115,8 +131,7 @@ public class MoneyTransferServiceImpl implements MoneyTransferService {
                 .collect(Collectors.toList());
     }
 
-    @Override
-    public List<MoneyTransfer> getMoneyTransferByDomain(@Valid Domain domain) {
+    private List<MoneyTransfer> getMoneyTransferByDomain(@Valid Domain domain) {
 
         Optional.ofNullable(domain).orElseThrow(IllegalArgumentException::new);
 

@@ -11,8 +11,10 @@ import javax.validation.constraints.NotNull;
 @Data
 @Entity(name = "domains")
 public class Domain {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name="domains_id_seq", allocationSize = 1, sequenceName = "domains_id_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,  generator="domains_id_seq")
     @Column(name = "id_domain")
     private Long id;
 

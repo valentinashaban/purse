@@ -13,15 +13,17 @@ import java.util.List;
  */
 @Service
 public interface MoneyTransferService {
-    void addMoneyTransfer(MoneyTransfer moneyTransfer);
+    MoneyTransfer addMoneyTransfer(MoneyTransfer moneyTransfer);
 
     void deleteMoneyTransfer(MoneyTransfer moneyTransfer);
 
     void deleteMoneyTransferById(Long id);
 
-    void updateMoneyTransfer(MoneyTransfer moneyTransfer);
+    MoneyTransfer updateMoneyTransfer(MoneyTransfer moneyTransfer);
 
-    List<MoneyTransfer> getMoneyTransfer();
+    MoneyTransfer getMoneyTransferById(Long id);
+
+    List<MoneyTransfer> getMoneyTransfers();
 
     List<MoneyTransfer> getMoneyTransferOn(Date date) throws IllegalArgumentException;
 
@@ -31,8 +33,6 @@ public interface MoneyTransferService {
 
     List<MoneyTransfer> getMoneyTransferMoreExpensiveThan(Double amount);
 
-    List<MoneyTransfer> getMoneyTransferByWherefrom(Wherefrom wherefrom);
-
-    List<MoneyTransfer> getMoneyTransferByDomain(Domain domain);
+    List<MoneyTransfer> getMoneyTransferByCategory(Object category);
 
 }
