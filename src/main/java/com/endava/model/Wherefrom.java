@@ -1,9 +1,9 @@
 package com.endava.model;
 
 import lombok.Data;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 /**
  * Created by vsaban on 3/15/2017.
@@ -17,6 +17,23 @@ public class Wherefrom {
     @Column(name = "id_wherefrom")
     private Long id;
 
-    @NotNull
+    @NotEmpty
     private String name;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
 }

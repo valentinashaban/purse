@@ -1,9 +1,9 @@
 package com.endava.model;
 
 import lombok.Data;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 /**
  * Created by vsaban on 3/15/2017.
@@ -18,6 +18,6 @@ public class Domain {
     @Column(name = "id_domain")
     private Long id;
 
-    @NotNull
+    @NotEmpty
     private String name;
 }
