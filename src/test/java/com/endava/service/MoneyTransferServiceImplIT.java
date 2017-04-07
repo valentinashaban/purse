@@ -32,10 +32,10 @@ import static org.junit.Assert.*;
 public class MoneyTransferServiceImplIT {
 
     @Autowired
-    private UserDao userDao;
+    private UserService userService;
 
     @Autowired
-    private WherefromDao wherefromDao;
+    private WherefromService wherefromService;
 
     @Autowired
     private MoneyTransferDao moneyTransferDao;
@@ -55,13 +55,13 @@ public class MoneyTransferServiceImplIT {
     }
 
     @Test
-    public void testAddMoneyTransfer() {
-        userDao.persist(user);
-        wherefromDao.persist(wherefrom);
+    public void testSaveMoneyTransfer() {
+        userService.saveUser(user);
+        wherefromService.saveWherefrom(wherefrom);
 
         moneyTransfer.setUser(user);
 
-        MoneyTransfer actualMoneyTransfer = moneyTransferService.addMoneyTransfer(moneyTransfer);
+        MoneyTransfer actualMoneyTransfer = moneyTransferService.saveMoneyTransfer(moneyTransfer);
 
         assertNotNull(actualMoneyTransfer);
         assertEquals(actualMoneyTransfer, moneyTransfer);
@@ -69,12 +69,12 @@ public class MoneyTransferServiceImplIT {
 
     @Test
     public void testDeleteMoneyTransfer() {
-        userDao.persist(user);
-        wherefromDao.persist(wherefrom);
+        userService.saveUser(user);
+        wherefromService.saveWherefrom(wherefrom);
 
         moneyTransfer.setUser(user);
 
-        MoneyTransfer actualMoneyTransfer = moneyTransferService.addMoneyTransfer(moneyTransfer);
+        MoneyTransfer actualMoneyTransfer = moneyTransferService.saveMoneyTransfer(moneyTransfer);
 
         assertNotNull(actualMoneyTransfer);
 
@@ -85,12 +85,12 @@ public class MoneyTransferServiceImplIT {
 
     @Test
     public void testDeleteMoneyTransferById() {
-        userDao.persist(user);
-        wherefromDao.persist(wherefrom);
+        userService.saveUser(user);
+        wherefromService.saveWherefrom(wherefrom);
 
         moneyTransfer.setUser(user);
 
-        MoneyTransfer persistedMoneyTransfer = moneyTransferService.addMoneyTransfer(moneyTransfer);
+        MoneyTransfer persistedMoneyTransfer = moneyTransferService.saveMoneyTransfer(moneyTransfer);
 
         assertNotNull(persistedMoneyTransfer);
 
@@ -101,12 +101,12 @@ public class MoneyTransferServiceImplIT {
 
     @Test
     public void testUpdateMoneyTransfer() {
-        userDao.persist(user);
-        wherefromDao.persist(wherefrom);
+        userService.saveUser(user);
+        wherefromService.saveWherefrom(wherefrom);
 
         moneyTransfer.setUser(user);
 
-        MoneyTransfer persistedMoneyTransfer = moneyTransferService.addMoneyTransfer(moneyTransfer);
+        MoneyTransfer persistedMoneyTransfer = moneyTransferService.saveMoneyTransfer(moneyTransfer);
 
         assertNotNull(persistedMoneyTransfer);
 
@@ -120,12 +120,12 @@ public class MoneyTransferServiceImplIT {
 
     @Test
     public void testGetMoneyTransferById() {
-        userDao.persist(user);
-        wherefromDao.persist(wherefrom);
+        userService.saveUser(user);
+        wherefromService.saveWherefrom(wherefrom);
 
         moneyTransfer.setUser(user);
 
-        MoneyTransfer persistedMoneyTransfer = moneyTransferService.addMoneyTransfer(moneyTransfer);
+        MoneyTransfer persistedMoneyTransfer = moneyTransferService.saveMoneyTransfer(moneyTransfer);
 
         assertNotNull(persistedMoneyTransfer);
 
@@ -137,12 +137,12 @@ public class MoneyTransferServiceImplIT {
 
     @Test
     public void testGetMoneyTransfers() {
-        userDao.persist(user);
-        wherefromDao.persist(wherefrom);
+        userService.saveUser(user);
+        wherefromService.saveWherefrom(wherefrom);
 
         moneyTransfer.setUser(user);
 
-        MoneyTransfer persistedMoneyTransfer = moneyTransferService.addMoneyTransfer(moneyTransfer);
+        MoneyTransfer persistedMoneyTransfer = moneyTransferService.saveMoneyTransfer(moneyTransfer);
 
         assertNotNull(persistedMoneyTransfer);
 
@@ -156,12 +156,12 @@ public class MoneyTransferServiceImplIT {
     public void testGetMoneyTransferOn() {
         Date date = new Date(DATE_ONE);
 
-        userDao.persist(user);
-        wherefromDao.persist(wherefrom);
+        userService.saveUser(user);
+        wherefromService.saveWherefrom(wherefrom);
 
         moneyTransfer.setUser(user);
 
-        MoneyTransfer persistedMoneyTransfer = moneyTransferService.addMoneyTransfer(moneyTransfer);
+        MoneyTransfer persistedMoneyTransfer = moneyTransferService.saveMoneyTransfer(moneyTransfer);
 
         assertNotNull(persistedMoneyTransfer);
 
@@ -173,12 +173,12 @@ public class MoneyTransferServiceImplIT {
 
     @Test
     public void testGetMoneyTransferLastWeek() {
-        userDao.persist(user);
-        wherefromDao.persist(wherefrom);
+        userService.saveUser(user);
+        wherefromService.saveWherefrom(wherefrom);
 
         MoneyTransfer newMT = createMoneyTransfer(52.0);
 
-        MoneyTransfer persistedMoneyTransfer = moneyTransferService.addMoneyTransfer(newMT);
+        MoneyTransfer persistedMoneyTransfer = moneyTransferService.saveMoneyTransfer(newMT);
 
         assertNotNull(persistedMoneyTransfer);
 
@@ -190,12 +190,12 @@ public class MoneyTransferServiceImplIT {
 
     @Test
     public void testGetMoneyTransferLastMonth() {
-        userDao.persist(user);
-        wherefromDao.persist(wherefrom);
+        userService.saveUser(user);
+        wherefromService.saveWherefrom(wherefrom);
 
         MoneyTransfer newMT = createMoneyTransfer(52.0);
 
-        MoneyTransfer persistedMoneyTransfer = moneyTransferService.addMoneyTransfer(newMT);
+        MoneyTransfer persistedMoneyTransfer = moneyTransferService.saveMoneyTransfer(newMT);
         assertNotNull(persistedMoneyTransfer);
 
         List<MoneyTransfer> requiredMoneyTransfer = moneyTransferService.getMoneyTransferLastMonth();
@@ -208,15 +208,15 @@ public class MoneyTransferServiceImplIT {
     public void testGetMoreExpensiveThan() {
         Double amount = 49.0;
 
-        userDao.persist(user);
-        wherefromDao.persist(wherefrom);
+        userService.saveUser(user);
+        wherefromService.saveWherefrom(wherefrom);
 
         moneyTransfer.setUser(user);
 
         MoneyTransfer newMT = createMoneyTransfer(12.0);
 
-        MoneyTransfer persistedMoneyTransfer = moneyTransferService.addMoneyTransfer(moneyTransfer);
-        moneyTransferService.addMoneyTransfer(newMT);
+        MoneyTransfer persistedMoneyTransfer = moneyTransferService.saveMoneyTransfer(moneyTransfer);
+        moneyTransferService.saveMoneyTransfer(newMT);
 
         assertNotNull(persistedMoneyTransfer);
 
@@ -228,12 +228,12 @@ public class MoneyTransferServiceImplIT {
 
     @Test
     public void testGetMoneyTransferByWherefrom() {
-        userDao.persist(user);
-        wherefromDao.persist(wherefrom);
+        userService.saveUser(user);
+        wherefromService.saveWherefrom(wherefrom);
 
         moneyTransfer.setUser(user);
 
-        MoneyTransfer persistedMoneyTransfer = moneyTransferService.addMoneyTransfer(moneyTransfer);
+        MoneyTransfer persistedMoneyTransfer = moneyTransferService.saveMoneyTransfer(moneyTransfer);
         assertNotNull(persistedMoneyTransfer);
 
         List<MoneyTransfer> requiredMoneyTransfers = moneyTransferService.getMoneyTransferByCategory(wherefrom);

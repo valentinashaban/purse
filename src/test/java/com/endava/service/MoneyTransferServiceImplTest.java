@@ -6,7 +6,6 @@ import com.endava.model.Wherefrom;
 import com.endava.service.impl.MoneyTransferServiceImpl;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -74,7 +73,7 @@ public class MoneyTransferServiceImplTest {
 
         constraintViolationsMoneyTransfer = VALIDATOR.validate(MONEY_TRANSFER);
 
-        moneyTransferService.addMoneyTransfer(MONEY_TRANSFER);
+        moneyTransferService.saveMoneyTransfer(MONEY_TRANSFER);
 
         verify(moneyTransferDao).persist(MONEY_TRANSFER);
         assertEquals(0, constraintViolationsMoneyTransfer.size());
@@ -246,7 +245,6 @@ public class MoneyTransferServiceImplTest {
         Set<ConstraintViolation<Wherefrom>> constraintViolationsWherefrom = VALIDATOR.validate(new Wherefrom());
 
         assertEquals(1, constraintViolationsWherefrom.size());
-        assertEquals("may not be null", constraintViolationsWherefrom.iterator().next().getMessage());
     }
 
     @Test
