@@ -33,7 +33,6 @@ public class IntegrationTestConfig {
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setSchema(env.getProperty("jdbc.schema.name"));
         dataSource.setDriverClassName(env.getProperty("jdbc.driver.className"));
         dataSource.setUrl(env.getProperty("jdbc.url"));
         dataSource.setUsername(env.getProperty("jdbc.username"));

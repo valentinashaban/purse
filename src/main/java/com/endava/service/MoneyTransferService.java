@@ -13,7 +13,7 @@ import java.util.List;
  */
 @Service
 public interface MoneyTransferService {
-    MoneyTransfer addMoneyTransfer(MoneyTransfer moneyTransfer);
+    MoneyTransfer saveMoneyTransfer(MoneyTransfer moneyTransfer);
 
     void deleteMoneyTransfer(MoneyTransfer moneyTransfer);
 

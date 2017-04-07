@@ -38,7 +38,7 @@ public class MoneyTransferServiceImpl implements MoneyTransferService {
 
     @Override
     @Transactional
-    public MoneyTransfer addMoneyTransfer(@Valid @NotNull MoneyTransfer moneyTransfer) {
+    public MoneyTransfer saveMoneyTransfer(@Valid @NotNull MoneyTransfer moneyTransfer) {
         moneyTransferDao.persist(moneyTransfer);
         return moneyTransfer;
     }

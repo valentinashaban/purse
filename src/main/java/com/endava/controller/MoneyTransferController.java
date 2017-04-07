@@ -8,9 +8,11 @@ import com.endava.model.Domain;
 import com.endava.model.MoneyTransfer;
 import com.endava.model.User;
 import com.endava.model.Wherefrom;
+import com.endava.service.DomainService;
 import com.endava.service.MoneyTransferService;
+import com.endava.service.UserService;
+import com.endava.service.WherefromService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -19,9 +21,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.beans.PropertyEditorSupport;
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 import static com.endava.enums.Role.USER;
@@ -33,33 +33,29 @@ import static com.endava.enums.Role.USER;
 @RequestMapping("/money-transfer")
 public class MoneyTransferController {
 
-    private WherefromDao wherefromDao;
-    private DomainDao domainDao;
-    private UserDao userDao;
+    private UserService userService;
+    private WherefromService wherefromService;
+    private DomainService domainService;
     private MoneyTransferService moneyTransferService;
 
     @Autowired
-    public MoneyTransferController(WherefromDao wherefromDao,
-                                   DomainDao domainDao,
-                                   UserDao userDao,
+    public MoneyTransferController(WherefromService wherefromService,
+                                   DomainService domainService,
+                                   UserService userService,
                                    MoneyTransferService moneyTransferService) {
-        this.wherefromDao = wherefromDao;
-        this.domainDao = domainDao;
-        this.userDao = userDao;
+        this.wherefromService = wherefromService;
+        this.domainService = domainService;
+        this.userService = userService;
         this.moneyTransferService = moneyTransferService;
     }
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {
-        //SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-        //sdf.setLenient(true);
-        //binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, true));
-
         binder.registerCustomEditor(Wherefrom.class, new PropertyEditorSupport(){
 
             @Override
             public void setAsText(String id) throws IllegalArgumentException {
-                Wherefrom wherefrom = wherefromDao.read(Long.parseLong(id));
+                Wherefrom wherefrom = wherefromService.getWherefromById(Long.parseLong(id));
                 setValue(wherefrom);
             }
         });
@@ -68,7 +64,7 @@ public class MoneyTransferController {
 
             @Override
             public void setAsText(String id) throws IllegalArgumentException {
-                Domain domain = domainDao.read(Long.parseLong(id));
+                Domain domain = domainService.getDomainById(Long.parseLong(id));
                 setValue(domain);
             }
         });
@@ -78,8 +74,8 @@ public class MoneyTransferController {
     public String addMoneyTransfer(Model model) {
         List<MoneyTransferType> transferTypes = Arrays.asList(MoneyTransferType.values());
 
-        List<Wherefrom> wherefroms = wherefromDao.readAll();
-        List<Domain> domains = domainDao.readAll();
+        List<Wherefrom> wherefroms = wherefromService.getWherefroms();
+        List<Domain> domains = domainService.getDomains();
 
         model.addAttribute("moneyTransfer", new MoneyTransfer());
         model.addAttribute("transferTypes", transferTypes);
@@ -92,11 +88,11 @@ public class MoneyTransferController {
     @PostMapping("/add")
     public String addMoneyTransfer(@ModelAttribute MoneyTransfer moneyTransfer, HttpServletRequest req) {
         User user = createUser();  //TODO
-        userDao.persist(user);
+        userService.saveUser(user);
 
         moneyTransfer.setUser(user);
 
-        moneyTransferService.addMoneyTransfer(moneyTransfer);
+        moneyTransferService.saveMoneyTransfer(moneyTransfer);
         return "index";
     }
 
