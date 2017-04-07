@@ -4,6 +4,7 @@ import com.endava.enums.MoneyTransferType;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
@@ -42,6 +43,7 @@ public class MoneyTransfer {
 
     @NotNull
     @Past
+    @DateTimeFormat(pattern = "MM/dd/yyyy")
     @Temporal(TemporalType.DATE)
     private Date date;
 

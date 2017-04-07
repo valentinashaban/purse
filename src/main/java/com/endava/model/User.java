@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -25,11 +26,11 @@ public class User {
     @Column(name = "id_user")
     private Long id;
 
-    @NotNull
+    @NotEmpty
     @Size(min = 5, max = 20)
     private String login;
 
-    @NotNull
+    @NotEmpty
     @Size(min = 6, max = 10)
     private String password;
 
