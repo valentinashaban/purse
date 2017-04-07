@@ -1,8 +1,5 @@
 package com.endava.controller;
 
-import com.endava.dao.DomainDao;
-import com.endava.dao.UserDao;
-import com.endava.dao.WherefromDao;
 import com.endava.enums.MoneyTransferType;
 import com.endava.model.Domain;
 import com.endava.model.MoneyTransfer;
@@ -14,7 +11,6 @@ import com.endava.service.UserService;
 import com.endava.service.WherefromService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
@@ -68,6 +64,15 @@ public class MoneyTransferController {
                 setValue(domain);
             }
         });
+
+        binder.registerCustomEditor(MoneyTransfer.class, new PropertyEditorSupport(){
+
+            @Override
+            public void setAsText(String id) throws IllegalArgumentException {
+                MoneyTransfer moneyTransfer = moneyTransferService.getMoneyTransferById(Long.parseLong(id));
+                setValue(moneyTransfer);
+            }
+        });
     }
 
     @GetMapping("/add")
@@ -84,16 +89,15 @@ public class MoneyTransferController {
         return "add-money-transfer";
     }
 
-    @Transactional
     @PostMapping("/add")
-    public String addMoneyTransfer(@ModelAttribute MoneyTransfer moneyTransfer, HttpServletRequest req) {
+    public String addMoneyTransfer(@ModelAttribute MoneyTransfer moneyTransfer) {
         User user = createUser();  //TODO
         userService.saveUser(user);
 
         moneyTransfer.setUser(user);
 
         moneyTransferService.saveMoneyTransfer(moneyTransfer);
-        return "index";
+        return "redirect:/index";
     }
 
     private User createUser() {
