@@ -1,8 +1,6 @@
 package com.endava.service;
 
-import com.endava.model.Domain;
 import com.endava.model.MoneyTransfer;
-import com.endava.model.Wherefrom;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;

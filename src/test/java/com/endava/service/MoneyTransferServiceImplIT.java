@@ -3,8 +3,6 @@ package com.endava.service;
 import com.endava.StaticReusedVariables;
 import com.endava.config.IntegrationTestConfig;
 import com.endava.dao.MoneyTransferDao;
-import com.endava.dao.UserDao;
-import com.endava.dao.WherefromDao;
 import com.endava.model.MoneyTransfer;
 import com.endava.model.User;
 import com.endava.model.Wherefrom;
@@ -17,7 +15,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
 
 import static com.endava.StaticReusedVariables.*;
 import static com.endava.enums.MoneyTransferType.INCOME;

@@ -20,9 +20,7 @@ import java.util.*;
 import static com.endava.StaticReusedVariables.*;
 import static com.endava.enums.MoneyTransferType.INCOME;
 import static javax.validation.Validation.buildDefaultValidatorFactory;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 /**

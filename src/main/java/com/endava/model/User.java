@@ -38,6 +38,9 @@ public class User {
     @Email
     private String email;
 
+    @Column(name = "active")
+    private int active;
+
     @NotNull
     @Enumerated(EnumType.STRING)
     private Role role;
