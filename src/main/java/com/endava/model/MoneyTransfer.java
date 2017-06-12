@@ -21,7 +21,8 @@ import static com.endava.enums.MoneyTransferType.INCOME;
  */
 @Getter @Setter
 @EqualsAndHashCode
-@Entity(name = "money_transfer")
+@Entity
+@Table(name = "money_transfer")
 public class MoneyTransfer {
 
     @Id

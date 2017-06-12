@@ -36,6 +36,11 @@ public class WherefromServiceImpl implements WherefromService {
     }
 
     @Override
+    public void deleteWherefroms(List<Wherefrom> wherefroms) {
+        wherefromDao.deleteList(wherefroms);
+    }
+
+    @Override
     @Transactional
     public Wherefrom updateWherefrom(Wherefrom wherefrom) {
         wherefromDao.merge(wherefrom);

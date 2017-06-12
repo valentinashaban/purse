@@ -10,6 +10,7 @@
 
     <properties>
         <spring.version>4.3.6.RELEASE</spring.version>
+        <security.version>4.2.2.RELEASE</security.version>
         <hibernate.version>5.2.8.Final</hibernate.version>
         <hibernate.EM.version>5.2.3.Final</hibernate.EM.version>
         <validator.version>5.3.4.Final</validator.version>
@@ -57,6 +58,24 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
             <version>${spring.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+            <version>${security.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>${security.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>${security.version}</version>
         </dependency>
 
         <dependency>

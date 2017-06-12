@@ -14,6 +14,8 @@ public interface WherefromService {
 
     void deleteWherefrom(Wherefrom wherefrom);
 
+    void deleteWherefroms(List<Wherefrom> wherefroms);
+
     Wherefrom updateWherefrom(Wherefrom wherefrom);
 
     Wherefrom getWherefromById(Long id);

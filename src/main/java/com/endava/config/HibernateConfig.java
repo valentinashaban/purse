@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
+import java.util.Properties;
 
 /**
  * Created by vsaban on 3/15/2017.
@@ -50,15 +51,16 @@ public class HibernateConfig {
         entityMangerFactory.setDataSource(dataSource());
         entityMangerFactory.setPackagesToScan(env.getProperty("hibernate.packagesToScan"));
         entityMangerFactory.setJpaVendorAdapter(jpaVendorAdapter());
+        entityMangerFactory.setJpaProperties(new Properties() {{
+            setProperty("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
+        }});
         return entityMangerFactory;
     }
 
     @Bean
     @Autowired
     public JpaTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
-        JpaTransactionManager transactionManager = new JpaTransactionManager();
-        transactionManager.setEntityManagerFactory(entityManagerFactory);
-        return transactionManager;
+        return new JpaTransactionManager(entityManagerFactory);
     }
 
 }

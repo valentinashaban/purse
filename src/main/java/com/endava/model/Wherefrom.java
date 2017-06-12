@@ -9,7 +9,8 @@ import javax.persistence.*;
  * Created by vsaban on 3/15/2017.
  */
 @Data
-@Entity(name = "wherefroms")
+@Entity
+@Table(name = "wherefroms")
 public class Wherefrom {
     @Id
     @SequenceGenerator(name="wherefroms_id_seq", allocationSize = 1, sequenceName = "wherefroms_id_seq")

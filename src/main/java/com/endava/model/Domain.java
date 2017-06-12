@@ -9,7 +9,8 @@ import javax.persistence.*;
  * Created by vsaban on 3/15/2017.
  */
 @Data
-@Entity(name = "domains")
+@Entity
+@Table(name = "domains")
 public class Domain {
 
     @Id

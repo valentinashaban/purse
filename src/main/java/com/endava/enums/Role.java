@@ -5,5 +5,14 @@ package com.endava.enums;
  */
 public enum Role {
     USER,
-    ADMIN
+    ADMIN;
+
+    public static Role getRole(String roleName) {
+        return Role.valueOf(Role.class, roleName);
+    }
+
+    public static class Names {
+        public static final String ADMIN = "ROLE_ADMIN";
+        public static final String USER = "ROLE_USER";
+    }
 }
