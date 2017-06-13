@@ -16,30 +16,29 @@
     <div class="row ">
         <form class="col m6 s12 offset-m3" id="reg-form">
             <div class="row">
-                <div class="input-field col s6">
-                    <input id="first_name" type="text" class="validate" required>
-                    <label for="first_name">First Name</label>
-                </div>
-                <div class="input-field col s6">
-                    <input id="last_name" type="text" class="validate" required>
-                    <label for="last_name">Last Name</label>
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">account_circle</i>
+                    <input id="username" type="text" class="validate" required>
+                    <label for="username">Username</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
+                    <i class="material-icons prefix">email</i>
                     <input id="email" type="email" class="validate" required>
                     <label for="email">Email</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
+                    <i class="material-icons prefix">lock_outline</i>
                     <input id="password" type="password" class="validate" minlength="6" required>
                     <label for="password">Password</label>
                 </div>
             </div>
             <div class="row">
-                <div class="input-field col s6">
-                    <button class="btn btn-large btn-register waves-effect waves-light" type="submit" name="action">Register
+                <div class="input-field">
+                    <button class="right btn btn-large btn-register waves-effect waves-light" type="submit" name="action">Register
                         <i class="material-icons right">done</i>
                     </button>
                 </div>
