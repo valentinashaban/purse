@@ -31,6 +31,6 @@ public interface MoneyTransferService {
 
     List<MoneyTransfer> getMoneyTransferMoreExpensiveThan(Double amount);
 
-    List<MoneyTransfer> getMoneyTransferByCategory(Object category);
+    List<MoneyTransfer> getMoneyTransferByCategory(String category);
 
 }

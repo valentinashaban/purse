@@ -6,10 +6,13 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -50,10 +53,11 @@ public class User {
 
     public User() {}
 
-    private User(String login, String password, String email, Role role, List<MoneyTransfer> moneyTransfers) {
+    private User(String login, String password, String email, int active, Role role, List<MoneyTransfer> moneyTransfers) {
         this.login = login;
         this.password = password;
         this.email = email;
+        this.active = active;
         this.role = role;
         this.moneyTransfers = moneyTransfers;
     }
@@ -66,6 +70,7 @@ public class User {
         private String login;
         private String password;
         private String email;
+        private int active;
         private Role role;
         List<MoneyTransfer> moneyTransfers;
 
@@ -84,6 +89,11 @@ public class User {
             return this;
         }
 
+        public Builder withActive(int active) {
+            this.active = active;
+            return this;
+        }
+
         public Builder withRole(Role role) {
             this.role = role;
             return this;
@@ -95,7 +105,19 @@ public class User {
         }
 
         public User build() {
-            return new User(login, password, email, role, moneyTransfers);
+            return new User(login, password, email, active, role, moneyTransfers);
         }
+    }
+
+    public Collection<GrantedAuthority> getAuthorities() {
+        Collection<GrantedAuthority> grantedAuthorities = new ArrayList<>();
+        GrantedAuthority grantedAuthority = new GrantedAuthority() {
+            //anonymous inner type
+            public String getAuthority() {
+                return "ROLE_USER";
+            }
+        };
+        grantedAuthorities.add(grantedAuthority);
+        return grantedAuthorities;
     }
 }

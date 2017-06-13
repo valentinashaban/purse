@@ -111,13 +111,13 @@ public class MoneyTransferServiceImpl implements MoneyTransferService {
                 .collect(Collectors.toList());
     }
 
-    public List<MoneyTransfer> getMoneyTransferByCategory(Object category) {
+    public List<MoneyTransfer> getMoneyTransferByCategory(String category) {
         Optional.ofNullable(category).orElseThrow(IllegalArgumentException::new);
 
-        if (category instanceof Wherefrom)
-            return this.getMoneyTransferByWherefrom((Wherefrom)category);
-        else if (category instanceof Domain)
-            return this.getMoneyTransferByDomain((Domain)category);
+        if (category == "income")
+            return this.getMoneyTransferByWherefromName(category);
+        else if (category == "expense")
+            return this.getMoneyTransferByDomainName(category);
         else
             throw new IllegalArgumentException();
     }
@@ -131,12 +131,30 @@ public class MoneyTransferServiceImpl implements MoneyTransferService {
                 .collect(Collectors.toList());
     }
 
+    private List<MoneyTransfer> getMoneyTransferByWherefromName(@Valid String wherefromName) {
+
+        Optional.ofNullable(wherefromName).orElseThrow(IllegalArgumentException::new);
+
+        return moneyTransferDao.readAll().stream()
+                .filter(i -> i.getWherefrom().getName().equals(wherefromName))
+                .collect(Collectors.toList());
+    }
+
     private List<MoneyTransfer> getMoneyTransferByDomain(@Valid Domain domain) {
 
         Optional.ofNullable(domain).orElseThrow(IllegalArgumentException::new);
 
         return moneyTransferDao.readAll().stream()
                 .filter(i -> i.getDomain().equals(domain))
+                .collect(Collectors.toList());
+    }
+
+    private List<MoneyTransfer> getMoneyTransferByDomainName(@Valid String domainName) {
+
+        Optional.ofNullable(domainName).orElseThrow(IllegalArgumentException::new);
+
+        return moneyTransferDao.readAll().stream()
+                .filter(i -> i.getDomain().getName().equals(domainName))
                 .collect(Collectors.toList());
     }
 

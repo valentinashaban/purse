@@ -1,3 +1,4 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -14,7 +15,7 @@
 <div class="container">
     <h3 class="center-align teal-text text-lighten-1">Registration</h3>
     <div class="row ">
-        <form class="col m6 s12 offset-m3" id="reg-form">
+        <form:form class="col m6 s12 offset-m3" id="reg-form" action="/registratiton" method="post" modelAttribute="user">
             <div class="row">
                 <div class="input-field col s12">
                     <i class="material-icons prefix">account_circle</i>
@@ -43,7 +44,7 @@
                     </button>
                 </div>
             </div>
-        </form>
+        </form:form>
     </div>
 </div>
 </main>

@@ -16,4 +16,6 @@ public interface UserService {
     User updateUser(User user);
 
     User getUserById(Long id);
+
+    boolean exists(User user);
 }

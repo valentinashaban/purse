@@ -13,7 +13,7 @@
 <%-- Body --%>
 <main>
     <div class="container">
-        <h1>Home page</h1>
+        <h3 class="center-align teal-text text-lighten-1">My profile</h3>
     </div>
 </main>
 

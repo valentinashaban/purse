@@ -44,4 +44,9 @@ public class UserServiceImpl implements UserService {
     public User getUserById(Long id) {
         return userDao.read(id);
     }
+
+    @Override
+    public boolean exists(User user) {
+        return userDao.exists(user);
+    }
 }
