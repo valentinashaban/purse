@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Registration</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <%-- CSS --%>
     <%@include file="components/css.html"%>
 </head>
@@ -9,9 +10,11 @@
 <%-- Header --%>
 <%@include file="components/header.jsp"%>
 
+<main>
 <div class="container">
-    <div class="row">
-        <form class="col s12" id="reg-form">
+    <h3 class="center-align teal-text text-lighten-1">Registration</h3>
+    <div class="row ">
+        <form class="col m6 s12 offset-m3" id="reg-form">
             <div class="row">
                 <div class="input-field col s6">
                     <input id="first_name" type="text" class="validate" required>
@@ -44,6 +47,7 @@
         </form>
     </div>
 </div>
+</main>
 
 <%-- Footer --%>
 <%@include file="components/footer.jsp"%>

@@ -14,7 +14,7 @@
 <%-- Body --%>
 <main>
     <div class="container">
-        <h1>Login page</h1>
+        <h3 class="center-align teal-text text-lighten-1">Login</h3>
 
         <div class="row">
             <form name="f" class="col m6 s12 offset-m3" action="/login" method="POST">

@@ -12,18 +12,11 @@
                     Application created to store your financial transfers. Don't keep everything in mind. Use purse app.
                 </p>
             </div>
-            <div class="col m3 offset-m1 s6">
-                <h5 class="white-text">Info</h5>
-                <ul>
-                    <li><a class="grey-text text-lighten-3" href="${contextPath}/">Home</a></li>
-                    <li><a class="grey-text text-lighten-3" href="${contextPath}/#">Link 1</a></li>
-                    <li><a class="grey-text text-lighten-3" href="${contextPath}/#">Link 2</a></li>
-                </ul>
-            </div>
-            <div class="col m3 s6">
+
+            <div class="right col m3 s6">
                 <h5 class="white-text">Menu</h5>
                 <ul>
-                    <li><a class="grey-text text-lighten-3" href="${contextPath}/#">Link 3</a></li>
+                    <li><a class="grey-text text-lighten-3" href="/">Home</a></li>
                     <c:choose>
                         <c:when test="${not empty user}">
                             <li><a href="${contextPath}/profile" class="grey-text text-lighten-3">Profile</a></li>
