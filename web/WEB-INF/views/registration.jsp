@@ -36,17 +36,6 @@
             </div>
             <div class="row">
                 <div class="input-field col s6">
-                    <div class="gender-male">
-                        <input class="with-gap" name="gender" type="radio" id="male" required />
-                        <label for="male">Male</label>
-                    </div>
-                    <div class="gender-female">
-                        <input class="with-gap" name="gender" type="radio" id="female" required />
-                        <label for="female">Female</label>
-                    </div>
-                </div>
-
-                <div class="input-field col s6">
                     <button class="btn btn-large btn-register waves-effect waves-light" type="submit" name="action">Register
                         <i class="material-icons right">done</i>
                     </button>
@@ -54,7 +43,6 @@
             </div>
         </form>
     </div>
-    <a title="Login" class="ngl btn-floating btn-large waves-effect waves-light red"><i class="material-icons">input</i></a>
 </div>
 
 <%-- Footer --%>
