@@ -74,6 +74,20 @@ public class MoneyTransferServiceImpl implements MoneyTransferService {
     }
 
     @Override
+    public List<MoneyTransfer> getIncomes() {
+        return this.getMoneyTransfers().stream()
+                .filter(i -> i.isIncome())
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<MoneyTransfer> getExpenses() {
+        return this.getMoneyTransfers().stream()
+                .filter(i -> i.isExpense())
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public List<MoneyTransfer> getMoneyTransferOn(Date date) {
 
         if (date == null || date.after(this.getCurrentDate()))
@@ -111,13 +125,14 @@ public class MoneyTransferServiceImpl implements MoneyTransferService {
                 .collect(Collectors.toList());
     }
 
-    public List<MoneyTransfer> getMoneyTransferByCategory(String category) {
+    @Override
+    public List<MoneyTransfer> getMoneyTransferByCategory(Object category) {
         Optional.ofNullable(category).orElseThrow(IllegalArgumentException::new);
 
-        if (category == "income")
-            return this.getMoneyTransferByWherefromName(category);
-        else if (category == "expense")
-            return this.getMoneyTransferByDomainName(category);
+        if (category instanceof Wherefrom)
+            return this.getMoneyTransferByWherefrom((Wherefrom) category);
+        else if (category instanceof Domain)
+            return this.getMoneyTransferByDomain((Domain) category);
         else
             throw new IllegalArgumentException();
     }
@@ -131,30 +146,12 @@ public class MoneyTransferServiceImpl implements MoneyTransferService {
                 .collect(Collectors.toList());
     }
 
-    private List<MoneyTransfer> getMoneyTransferByWherefromName(@Valid String wherefromName) {
-
-        Optional.ofNullable(wherefromName).orElseThrow(IllegalArgumentException::new);
-
-        return moneyTransferDao.readAll().stream()
-                .filter(i -> i.getWherefrom().getName().equals(wherefromName))
-                .collect(Collectors.toList());
-    }
-
     private List<MoneyTransfer> getMoneyTransferByDomain(@Valid Domain domain) {
 
         Optional.ofNullable(domain).orElseThrow(IllegalArgumentException::new);
 
         return moneyTransferDao.readAll().stream()
                 .filter(i -> i.getDomain().equals(domain))
-                .collect(Collectors.toList());
-    }
-
-    private List<MoneyTransfer> getMoneyTransferByDomainName(@Valid String domainName) {
-
-        Optional.ofNullable(domainName).orElseThrow(IllegalArgumentException::new);
-
-        return moneyTransferDao.readAll().stream()
-                .filter(i -> i.getDomain().getName().equals(domainName))
                 .collect(Collectors.toList());
     }
 

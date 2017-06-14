@@ -21,7 +21,7 @@
                     </sec:authorize>
                 </ul>
                     <sec:authorize access="isAuthenticated()">
-                        <a class="right" href="${contextPath}/login?logout">Log Out</a>
+                        <a class="right" href="${contextPath}/logout">Log Out</a>
                     </sec:authorize>
                 <ul class="side-nav" id="mobile-demo">
                     <li><a href="${contextPath}/">Home</a></li>
@@ -35,7 +35,7 @@
                         <li><a href="${contextPath}/expenses">Expenses</a></li>
                         <li><a href="${contextPath}/incomes">Incomes</a></li>
                         <li><a href="${contextPath}/money-transfer">Add money transfer</a></li>
-                        <li><a href="${contextPath}/login?logout">Log Out</a></li>
+                        <li><a href="${contextPath}/logout">Log Out</a></li>
                     </sec:authorize>
                 </ul>
             </div>

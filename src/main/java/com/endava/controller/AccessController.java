@@ -94,13 +94,13 @@ public class AccessController {
 
     @GetMapping("/expenses")
     public String expenses(Model model) {
-        model.addAttribute("expenses", moneyTransferService.getMoneyTransferByCategory("expense"));
+        model.addAttribute("expenses", moneyTransferService.getExpenses());
         return "expenses";
     }
 
     @GetMapping("/incomes")
     public String incomes(Model model) {
-        model.addAttribute("expenses", moneyTransferService.getMoneyTransferByCategory("income"));
+        model.addAttribute("expenses", moneyTransferService.getIncomes());
         return "incomes";
     }
 

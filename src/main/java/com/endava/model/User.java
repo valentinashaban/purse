@@ -42,7 +42,7 @@ public class User {
     private String email;
 
     @Column(name = "active")
-    private int active;
+    private int active = 1;
 
     @NotNull
     @Enumerated(EnumType.STRING)

@@ -23,6 +23,10 @@ public interface MoneyTransferService {
 
     List<MoneyTransfer> getMoneyTransfers();
 
+    List<MoneyTransfer> getIncomes();
+
+    List<MoneyTransfer> getExpenses();
+
     List<MoneyTransfer> getMoneyTransferOn(Date date) throws IllegalArgumentException;
 
     List<MoneyTransfer> getMoneyTransferLastWeek();
@@ -31,6 +35,6 @@ public interface MoneyTransferService {
 
     List<MoneyTransfer> getMoneyTransferMoreExpensiveThan(Double amount);
 
-    List<MoneyTransfer> getMoneyTransferByCategory(String category);
+    List<MoneyTransfer> getMoneyTransferByCategory(Object category);
 
 }
