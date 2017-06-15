@@ -29,7 +29,11 @@
                     <tbody>
                     <c:forEach items="${domains}" var="item">
                         <tr>
-                            <td>${item.name}</td>
+                            <td>
+                                <a class="left green-text" href="/profile/edit-domain-${item.id}">Edit</a>
+                                    ${item.name}&nbsp;
+                                <a class="right red-text" href="/profile/delete-domain-${item.id}">Delete</a>
+                            </td>
                         </tr>
                     </c:forEach>
                     </tbody>
@@ -48,7 +52,11 @@
                     <tbody>
                     <c:forEach items="${wherefroms}" var="item">
                         <tr>
-                            <td>${item.name}</td>
+                            <td>
+                                <a class="left green-text" href="/profile/edit-wherefrom-${item.id}">Edit</a>
+                                    ${item.name}
+                                <a class="right red-text" href="/profile/delete-wherefrom-${item.id}">Delete</a>
+                            </td>
                         </tr>
                     </c:forEach>
                     </tbody>

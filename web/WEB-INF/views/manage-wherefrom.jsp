@@ -2,7 +2,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
-    <title>Add Wherefrom</title>
+    <title>Manage Wherefrom</title>
     <%-- CSS --%>
     <%@include file="components/css.html" %>
 </head>
@@ -13,7 +13,7 @@
 <%-- Body --%>
 <main>
     <div class="container">
-        <h3 class="center-align teal-text text-lighten-1">Add Wherefrom</h3>
+        <h3 class="center-align teal-text text-lighten-1">Manage Wherefrom</h3>
 
         <div class="row">
             <form:form method="post" modelAttribute="wherefrom">
@@ -22,7 +22,7 @@
                     <form:input path="name" id="name" type="text" class="validate"/>
                 </div>
                 <div class="col m6 offset-m3 s12">
-                    <button class="btn waves-effect waves-light left" type="submit" name="submit">Add Domain
+                    <button class="btn waves-effect waves-light left" type="submit" name="submit">Manage Domain
                         <i class="material-icons right">send</i>
                     </button>
                 </div>

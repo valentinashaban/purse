@@ -62,13 +62,14 @@ public class GenDaoImpl<T> implements GenDao<T> {
     @Transactional
     @Override
     public void delete(T entity) {
-        entityManager.remove(entity);
+        entityManager.remove(entityManager.merge(entity));
     }
 
+    @Transactional
     @Override
     public void deleteById(Long id) {
         T entity = this.read(id);
-        entityManager.remove(entity);
+        entityManager.remove(entityManager.merge(entity));
     }
 
     @Transactional
