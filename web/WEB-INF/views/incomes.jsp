@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Expenses</title>
+    <title>Incomes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <%-- CSS --%>
     <%@include file="components/css.html" %>
@@ -11,7 +11,7 @@
 <%@include file="components/header.jsp" %>
 
 <main>
-    <h3 class="center-align teal-text text-lighten-1">Expenses</h3>
+    <h3 class="center-align teal-text text-lighten-1">Incomes</h3>
 
     <%--<c:forEach items="${expenses}" var="item">--%>
     <%--<tr>--%>
@@ -38,57 +38,57 @@
                     <tbody>
                     <tr>
                         <td>1</td>
-                        <td>50</td>
-                        <td>2015-12-17</td>
-                        <td>Food</td>
+                        <td>3000</td>
+                        <td>2016-12-15</td>
+                        <td>Salary</td>
                     </tr>
                     <tr>
                         <td>2</td>
-                        <td>150</td>
-                        <td>2015-12-05</td>
-                        <td>Transport</td>
+                        <td>1000</td>
+                        <td>2016-12-31</td>
+                        <td>Premium</td>
                     </tr>
                     <tr>
                         <td>3</td>
-                        <td>2500</td>
-                        <td>2016-03-05</td>
-                        <td>Apartment</td>
+                        <td>10000</td>
+                        <td>2016-12-31</td>
+                        <td>Gift</td>
                     </tr>
                     <tr>
                         <td>4</td>
-                        <td>12.50</td>
-                        <td>2017-02-16</td>
-                        <td>Shopping</td>
+                        <td>4000</td>
+                        <td>2017-01-15</td>
+                        <td>Salary</td>
                     </tr>
                     <tr>
                         <td>5</td>
-                        <td>96</td>
-                        <td>2002-09-01</td>
-                        <td>Food</td>
+                        <td>3000</td>
+                        <td>2017-03-15</td>
+                        <td>Salary</td>
                     </tr>
                     <tr>
                         <td>6</td>
-                        <td>30</td>
-                        <td>2005-06-26</td>
-                        <td>Transport</td>
+                        <td>1500</td>
+                        <td>2017-03-08</td>
+                        <td>Premium</td>
                     </tr>
                     <tr>
                         <td>7</td>
-                        <td>666</td>
-                        <td>2017-03-13</td>
-                        <td>Apartment</td>
+                        <td>200</td>
+                        <td>2017-03-08</td>
+                        <td>Gift</td>
                     </tr>
                     <tr>
                         <td>8</td>
-                        <td>800</td>
-                        <td>1994-06-10</td>
-                        <td>Travels</td>
+                        <td>5000</td>
+                        <td>2017-04-15</td>
+                        <td>Salary</td>
                     </tr>
                     <tr>
                         <td>9</td>
-                        <td>1500</td>
+                        <td>1850</td>
                         <td>2017-06-01</td>
-                        <td>Shopping</td>
+                        <td>Gift</td>
                     </tr>
                     </tbody>
                 </table>

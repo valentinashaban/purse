@@ -19,7 +19,7 @@
 
         <form:form method="post" modelAttribute="moneyTransfer">
             <form:label path="type">
-                Transfer type: <form:select id="transfer-type" path="type" items="${transferTypes}"/>
+                Transfer type: <form:select id="transfer-type" path="type" items="${transferTypes}" itemLabel="name" itemValue="id"/>
             </form:label>
             <br/>
             <form:label path="date">

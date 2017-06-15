@@ -3,8 +3,10 @@ package com.endava.controller;
 import com.endava.UserDto;
 import com.endava.enums.Role;
 import com.endava.model.User;
+import com.endava.service.DomainService;
 import com.endava.service.MoneyTransferService;
 import com.endava.service.UserService;
+import com.endava.service.WherefromService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -35,6 +37,12 @@ public class AccessController {
 
     @Autowired
     private MoneyTransferService moneyTransferService;
+
+    @Autowired
+    private DomainService domainService;
+
+    @Autowired
+    private WherefromService wherefromService;
 
     @GetMapping("/login")
     public String loginPage() {
@@ -83,7 +91,9 @@ public class AccessController {
     }
 
     @GetMapping("/profile")
-    public String profile() {
+    public String profile(Model model) {
+        model.addAttribute("domains", domainService.getDomains());
+        model.addAttribute("wherefroms", wherefromService.getWherefroms());
         return "profile";
     }
 
@@ -94,13 +104,13 @@ public class AccessController {
 
     @GetMapping("/expenses")
     public String expenses(Model model) {
-        model.addAttribute("expenses", moneyTransferService.getExpenses());
+//        model.addAttribute("expenses", moneyTransferService.getExpenses());
         return "expenses";
     }
 
     @GetMapping("/incomes")
     public String incomes(Model model) {
-        model.addAttribute("expenses", moneyTransferService.getIncomes());
+//        model.addAttribute("expenses", moneyTransferService.getIncomes());
         return "incomes";
     }
 
