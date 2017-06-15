@@ -23,8 +23,15 @@ public class UserDaoImpl extends GenDaoImpl<User> implements UserDao {
         final ParameterExpression<String> param = builder.parameter(String.class);
         query.select(root).where(builder.equal(root.get("login"), param));
 
-        return entityManager.createQuery(query)
-                .setParameter(param, login)
-                .getSingleResult();
+        User user;
+        try {
+            user = entityManager.createQuery(query)
+                    .setParameter(param, login)
+                    .getSingleResult();
+        } catch (Exception e) {
+            user = null;
+        }
+
+        return user;
     }
 }

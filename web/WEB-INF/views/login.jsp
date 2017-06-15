@@ -17,6 +17,7 @@
         <h3 class="center-align teal-text text-lighten-1">Login</h3>
 
         <div class="row">
+            <div class="green-text center">${message}</div>
             <form name="f" class="col m6 s12 offset-m3" action="/login" method="POST">
                 <div class="row">
                     <div class="input-field col s12">

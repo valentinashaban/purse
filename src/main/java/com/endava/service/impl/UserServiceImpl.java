@@ -1,5 +1,6 @@
 package com.endava.service.impl;
 
+import com.endava.UserDto;
 import com.endava.dao.UserDao;
 import com.endava.model.User;
 import com.endava.service.UserService;
@@ -61,5 +62,30 @@ public class UserServiceImpl implements UserService {
         return Optional.ofNullable(user)
                 .map(u -> userDao.findByLogin(u.getUsername()))
                 .orElse(null);
+    }
+
+    @Override
+    public boolean isValidUser(final UserDto userDto) {
+        if (userDtoIsComplete(userDto)) {
+            final User user = userDao.findByLogin(userDto.getLogin());
+
+            boolean matches = userDto.getPassword().equals(userDto.getRepeatPassword());
+
+            return user == null && matches;
+        }
+
+        return false;
+    }
+
+    private boolean userDtoIsComplete(final UserDto userDto) {
+        final String login = userDto.getLogin();
+        final String email = userDto.getEmail();
+        final String password = userDto.getPassword();
+        final String repeatPassword = userDto.getRepeatPassword();
+
+        return login != null && !login.isEmpty() &&
+                email != null && !email.isEmpty() &&
+                password != null && !password.isEmpty() &&
+                repeatPassword != null && !repeatPassword.isEmpty();
     }
 }

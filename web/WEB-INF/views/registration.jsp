@@ -15,26 +15,34 @@
 <div class="container">
     <h3 class="center-align teal-text text-lighten-1">Registration</h3>
     <div class="row ">
-        <form:form class="col m6 s12 offset-m3" id="reg-form" action="/registratiton" method="post" modelAttribute="user">
+        <div class="red-text center">${message}</div>
+        <form:form class="col m6 s12 offset-m3" id="reg-form" method="post" modelAttribute="userDto">
             <div class="row">
                 <div class="input-field col s12">
                     <i class="material-icons prefix">account_circle</i>
-                    <input id="username" type="text" class="validate" required>
-                    <label for="username">Username</label>
+                    <form:input path="login" id="login" type="text" class="validate" required="true"/>
+                    <label for="login">Username</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
                     <i class="material-icons prefix">email</i>
-                    <input id="email" type="email" class="validate" required>
+                    <form:input path="email" id="email" type="email" class="validate" required="true"/>
                     <label for="email">Email</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
                     <i class="material-icons prefix">lock_outline</i>
-                    <input id="password" type="password" class="validate" minlength="6" required>
+                    <form:input path="password" id="password" type="password" class="validate" minlength="6" required="true"/>
                     <label for="password">Password</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">lock_outline</i>
+                    <form:input path="repeatPassword" id="r_password" type="password" class="validate" minlength="6" required="true"/>
+                    <label for="r_password">Repeat Password</label>
                 </div>
             </div>
             <div class="row">

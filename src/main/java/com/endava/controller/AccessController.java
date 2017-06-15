@@ -8,9 +8,7 @@ import com.endava.service.MoneyTransferService;
 import com.endava.service.UserService;
 import com.endava.service.WherefromService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
@@ -21,7 +19,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
@@ -55,41 +52,35 @@ public class AccessController {
 
     @GetMapping("/registration")
     public String registration(Model model) {
-        model.addAttribute("user", new UserDto());
+        model.addAttribute("userDto", new UserDto());
         return "registration";
     }
 
-    @PostMapping(value = "/registration")
-    public String registration(HttpServletRequest request, Model model, @ModelAttribute UserDto userDto) {
-        User user = User.builder()
-                .withLogin(userDto.getLogin())
-                .withPassword(userDto.getPassword())
-                .withEmail(userDto.getEmail())
-                .withActive(1)
-                .withRole(Role.USER)
-                .build();
+    @PostMapping("/registration")
+    public String registration(final Model model, @ModelAttribute final UserDto userDto) {
 
         String page;
-        Authentication auth;
+        String message;
+        if (userService.isValidUser(userDto)) {
+            final User user = User.builder()
+                    .withLogin(userDto.getLogin())
+                    .withPassword(userDto.getPassword())
+                    .withEmail(userDto.getEmail())
+                    .withActive(1)
+                    .withRole(Role.USER)
+                    .build();
 
-        if (userService.exists(user)) {
-            model.addAttribute("exists", "This user is already registered");
-            page = "registration";
-        } else {
             userService.saveUser(user);
 
-            // Authenticate the user
-            auth = new UsernamePasswordAuthenticationToken(user.getLogin(), user.getPassword(), user.getAuthorities());
+            page = "login";
+            message = "Registration successful!";
+        } else {
 
-            SecurityContext securityContext = SecurityContextHolder.getContext();
-            securityContext.setAuthentication(auth);
-
-            // Create a new session and add the security context.
-            HttpSession session = request.getSession(true);
-            session.setAttribute("SPRING_SECURITY_CONTEXT", securityContext);
-
-            page = "redirect:/profile";
+            page = "registration";
+            message = "Registration failed!";
         }
+
+        model.addAttribute("message", message);
 
         return page;
     }

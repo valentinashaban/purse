@@ -1,5 +1,6 @@
 package com.endava.service;
 
+import com.endava.UserDto;
 import com.endava.model.User;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.stereotype.Service;
@@ -21,4 +22,6 @@ public interface UserService {
     boolean exists(User user);
 
     User getAuthenticatedUser(SecurityContext securityContext);
+
+    boolean isValidUser(UserDto userDto);
 }
