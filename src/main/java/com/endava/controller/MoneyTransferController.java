@@ -22,9 +22,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.beans.PropertyEditorSupport;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Created by vsaban on 4/5/2017.
@@ -49,7 +47,7 @@ public class MoneyTransferController {
     }
 
     @InitBinder
-    public void initBinder(WebDataBinder binder) {
+    public void initBinder(final WebDataBinder binder) {
         binder.registerCustomEditor(Wherefrom.class, new PropertyEditorSupport() {
 
             @Override
@@ -68,22 +66,17 @@ public class MoneyTransferController {
             }
         });
 
-        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+        final SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
         sdf.setLenient(true);
         binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, true));
     }
 
     @GetMapping("/money-transfer")
-    public String addMoneyTransfer(Model model) {
-        List<MoneyTransferType> transferTypes = Arrays.asList(MoneyTransferType.values());
-
-        List<Wherefrom> wherefroms = wherefromService.getWherefroms();
-        List<Domain> domains = domainService.getDomains();
-
+    public String addMoneyTransfer(final Model model) {
         model.addAttribute("moneyTransfer", new MoneyTransfer());
-        model.addAttribute("transferTypes", transferTypes);
-        model.addAttribute("wherefroms", wherefroms);
-        model.addAttribute("domains", domains);
+        model.addAttribute("transferTypes", MoneyTransferType.values());
+        model.addAttribute("wherefroms", wherefromService.getWherefroms());
+        model.addAttribute("domains", domainService.getDomains());
         return "add-money-transfer";
     }
 
@@ -94,18 +87,30 @@ public class MoneyTransferController {
         moneyTransfer.setUser(user);
         moneyTransferService.saveMoneyTransfer(moneyTransfer);
 
-        return "index";
+        String page;
+        if (moneyTransfer.isIncome())
+            page = "incomes";
+        else if (moneyTransfer.isExpense())
+            page = "expenses";
+        else
+            page = "index";
+
+        return page;
     }
 
     @GetMapping("/expenses")
-    public String expenses(Model model) {
-//        model.addAttribute("expenses", moneyTransferService.getExpenses());
+    public String expenses(final Model model) {
+        final User user = userService.getAuthenticatedUser(SecurityContextHolder.getContext());
+
+        model.addAttribute("expenses", moneyTransferService.getExpenses(user));
         return "expenses";
     }
 
     @GetMapping("/incomes")
-    public String incomes(Model model) {
-//        model.addAttribute("expenses", moneyTransferService.getIncomes());
+    public String incomes(final Model model) {
+        final User user = userService.getAuthenticatedUser(SecurityContextHolder.getContext());
+
+        model.addAttribute("incomes", moneyTransferService.getIncomes(user));
         return "incomes";
     }
 

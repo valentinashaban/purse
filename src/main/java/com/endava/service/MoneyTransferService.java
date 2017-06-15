@@ -1,6 +1,7 @@
 package com.endava.service;
 
 import com.endava.model.MoneyTransfer;
+import com.endava.model.User;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -23,9 +24,9 @@ public interface MoneyTransferService {
 
     List<MoneyTransfer> getMoneyTransfers();
 
-    List<MoneyTransfer> getIncomes();
+    List<MoneyTransfer> getIncomes(User user);
 
-    List<MoneyTransfer> getExpenses();
+    List<MoneyTransfer> getExpenses(User user);
 
     List<MoneyTransfer> getMoneyTransferOn(Date date) throws IllegalArgumentException;
 

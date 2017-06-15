@@ -15,18 +15,21 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import static javax.persistence.FetchType.EAGER;
+
 /**
  * Created by vsaban on 3/15/2017.
  */
-@Setter @Getter
+@Setter
+@Getter
 @EqualsAndHashCode
 @Entity
 @Table(name = "users")
 public class User {
 
     @Id
-    @SequenceGenerator(name="users_id_seq", allocationSize = 1, sequenceName = "users_id_seq")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,  generator="users_id_seq")
+    @SequenceGenerator(name = "users_id_seq", allocationSize = 1, sequenceName = "users_id_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_id_seq")
     @Column(name = "id_user")
     private Long id;
 
@@ -48,10 +51,11 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = EAGER)
     List<MoneyTransfer> moneyTransfers;
 
-    public User() {}
+    public User() {
+    }
 
     private User(String login, String password, String email, int active, Role role, List<MoneyTransfer> moneyTransfers) {
         this.login = login;

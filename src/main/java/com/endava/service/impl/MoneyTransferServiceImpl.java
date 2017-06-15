@@ -3,6 +3,7 @@ package com.endava.service.impl;
 import com.endava.dao.MoneyTransferDao;
 import com.endava.model.Domain;
 import com.endava.model.MoneyTransfer;
+import com.endava.model.User;
 import com.endava.model.Wherefrom;
 import com.endava.service.MoneyTransferService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,8 @@ import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 
 /**
@@ -81,17 +83,17 @@ public class MoneyTransferServiceImpl implements MoneyTransferService {
     }
 
     @Override
-    public List<MoneyTransfer> getIncomes() {
-        return this.getMoneyTransfers().stream()
-                .filter(i -> i.isIncome())
-                .collect(Collectors.toList());
+    public List<MoneyTransfer> getIncomes(User user) {
+        return user.getMoneyTransfers().stream()
+                .filter(MoneyTransfer::isIncome)
+                .collect(toList());
     }
 
     @Override
-    public List<MoneyTransfer> getExpenses() {
-        return this.getMoneyTransfers().stream()
-                .filter(i -> i.isExpense())
-                .collect(Collectors.toList());
+    public List<MoneyTransfer> getExpenses(User user) {
+        return user.getMoneyTransfers().stream()
+                .filter(MoneyTransfer::isExpense)
+                .collect(toList());
     }
 
     @Override
@@ -102,7 +104,7 @@ public class MoneyTransferServiceImpl implements MoneyTransferService {
 
         return moneyTransferDao.readAll().stream()
                 .filter(m -> m.getDate().equals(date))
-                .collect(Collectors.toList());
+                .collect(toList());
     }
 
     @Override
@@ -110,7 +112,7 @@ public class MoneyTransferServiceImpl implements MoneyTransferService {
 
         return moneyTransferDao.readAll().stream()
                 .filter(m -> m.getDate().after(this.getDateWeekAgo()))
-                .collect(Collectors.toList());
+                .collect(toList());
     }
 
     @Override
@@ -118,7 +120,7 @@ public class MoneyTransferServiceImpl implements MoneyTransferService {
 
         return moneyTransferDao.readAll().stream()
                 .filter(m -> m.getDate().after(this.getDateMonthAgo()))
-                .collect(Collectors.toList());
+                .collect(toList());
     }
 
     @Override
@@ -129,7 +131,7 @@ public class MoneyTransferServiceImpl implements MoneyTransferService {
 
         return moneyTransferDao.readAll().stream()
                 .filter(i -> i.getAmount() >= amount)
-                .collect(Collectors.toList());
+                .collect(toList());
     }
 
     @Override
@@ -150,7 +152,7 @@ public class MoneyTransferServiceImpl implements MoneyTransferService {
 
         return moneyTransferDao.readAll().stream()
                 .filter(i -> i.getWherefrom().equals(wherefrom))
-                .collect(Collectors.toList());
+                .collect(toList());
     }
 
     private List<MoneyTransfer> getMoneyTransferByDomain(@Valid Domain domain) {
@@ -159,7 +161,7 @@ public class MoneyTransferServiceImpl implements MoneyTransferService {
 
         return moneyTransferDao.readAll().stream()
                 .filter(i -> i.getDomain().equals(domain))
-                .collect(Collectors.toList());
+                .collect(toList());
     }
 
     public Date getCurrentDate() {

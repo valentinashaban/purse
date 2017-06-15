@@ -16,7 +16,10 @@
         <h3 class="center-align teal-text text-lighten-1">My profile</h3>
 
         <div class="row">
-            <div class="col s6 offset-s3">
+            <div class="col s12 m6">
+                <a href="${contextPath}/profile/add-domain"
+                   class="btn-floating btn-small right waves-effect waves-light red"><i
+                        class="material-icons">add</i></a>
                 <table class="centered striped">
                     <thead>
                     <tr>
@@ -26,18 +29,16 @@
                     <tbody>
                     <c:forEach items="${domains}" var="item">
                         <tr>
-                            <td>${item.name}<br/></td>
+                            <td>${item.name}</td>
                         </tr>
                     </c:forEach>
                     </tbody>
-                    <%--<c:forEach items="${wherefroms}" var="item">--%>
-                    <%--<tr>--%>
-                    <%--<td>${item.name}<br /></td>--%>
-                    <%--</tr>--%>
-                    <%--</c:forEach>--%>
                 </table>
-                <br/>
-                <br/>
+            </div>
+            <div class="col s12 m6">
+                <a href="${contextPath}/profile/add-wherefrom"
+                   class="btn-floating btn-small right waves-effect waves-light red"><i
+                        class="material-icons">add</i></a>
                 <table class="centered striped">
                     <thead>
                     <tr>
@@ -47,7 +48,7 @@
                     <tbody>
                     <c:forEach items="${wherefroms}" var="item">
                         <tr>
-                            <td>${item.name}<br/></td>
+                            <td>${item.name}</td>
                         </tr>
                     </c:forEach>
                     </tbody>

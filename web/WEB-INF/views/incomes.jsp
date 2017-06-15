@@ -13,85 +13,40 @@
 <main>
     <h3 class="center-align teal-text text-lighten-1">Incomes</h3>
 
-    <%--<c:forEach items="${expenses}" var="item">--%>
-    <%--<tr>--%>
-    <%--<td>${item.type}<br /></td>--%>
-    <%--<td>${item.amount}<br /></td>--%>
-    <%--<td>${item.date}<br /></td>--%>
-    <%--<td>${item.description}<br /></td>--%>
-    <%--</tr>--%>
-    <%--</c:forEach>--%>
-
     <div>
         <div class="row">
             <div class="col m6 s12 offset-m3">
-                <table class="striped centered">
-                    <thead>
-                    <tr>
-                        <th>N</th>
-                        <th>Amount</th>
-                        <th>Date</th>
-                        <th>Domain</th>
-                    </tr>
-                    </thead>
+                <c:choose>
+                    <c:when test="${not empty expenses}">
+                        <table class="striped centered">
+                            <thead>
+                            <tr>
+                                <th>Type</th>
+                                <th>Amount</th>
+                                <th>Date</th>
+                                <th>Domain</th>
+                            </tr>
+                            </thead>
 
-                    <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>3000</td>
-                        <td>2016-12-15</td>
-                        <td>Salary</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>1000</td>
-                        <td>2016-12-31</td>
-                        <td>Premium</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>10000</td>
-                        <td>2016-12-31</td>
-                        <td>Gift</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>4000</td>
-                        <td>2017-01-15</td>
-                        <td>Salary</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>3000</td>
-                        <td>2017-03-15</td>
-                        <td>Salary</td>
-                    </tr>
-                    <tr>
-                        <td>6</td>
-                        <td>1500</td>
-                        <td>2017-03-08</td>
-                        <td>Premium</td>
-                    </tr>
-                    <tr>
-                        <td>7</td>
-                        <td>200</td>
-                        <td>2017-03-08</td>
-                        <td>Gift</td>
-                    </tr>
-                    <tr>
-                        <td>8</td>
-                        <td>5000</td>
-                        <td>2017-04-15</td>
-                        <td>Salary</td>
-                    </tr>
-                    <tr>
-                        <td>9</td>
-                        <td>1850</td>
-                        <td>2017-06-01</td>
-                        <td>Gift</td>
-                    </tr>
-                    </tbody>
-                </table>
+                            <tbody>
+                            <c:forEach items="${expenses}" var="item">
+                                <tr>
+                                    <td>${item.type}</td>
+                                    <td>${item.amount} $</td>
+                                    <td>${item.date}</td>
+                                    <td>${item.description}</td>
+                                </tr>
+                            </c:forEach>
+                            </tbody>
+                        </table>
+                    </c:when>
+                    <c:otherwise>
+                        <h5 class="center-align cyan-text text-accent-4">
+                            Whoops... You don't have incomes =(
+                        </h5>
+                    </c:otherwise>
+                </c:choose>
+
             </div>
         </div>
     </div>
