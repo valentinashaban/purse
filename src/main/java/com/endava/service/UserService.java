@@ -1,6 +1,7 @@
 package com.endava.service;
 
 import com.endava.model.User;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.stereotype.Service;
 
 /**
@@ -18,4 +19,6 @@ public interface UserService {
     User getUserById(Long id);
 
     boolean exists(User user);
+
+    User getAuthenticatedUser(SecurityContext securityContext);
 }

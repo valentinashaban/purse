@@ -25,7 +25,7 @@
             </p>
         </div>
         <div class="row">
-            <img class="col s3 push-s5" src="/resources/images/wallet-2.png" alt="wallet"/>
+            <img class="col s4 offset-s4" src="/resources/images/wallet-2.png" alt="wallet"/>
         </div>
     </div>
 </main>

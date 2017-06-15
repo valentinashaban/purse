@@ -39,6 +39,13 @@ public class MoneyTransferServiceImpl implements MoneyTransferService {
     @Override
     @Transactional
     public MoneyTransfer saveMoneyTransfer(@Valid @NotNull MoneyTransfer moneyTransfer) {
+
+        if (moneyTransfer.isIncome()) {
+            moneyTransfer.setDomain(null);
+        } else if (moneyTransfer.isExpense()) {
+            moneyTransfer.setWherefrom(null);
+        }
+
         moneyTransferDao.persist(moneyTransfer);
         return moneyTransfer;
     }
@@ -155,7 +162,9 @@ public class MoneyTransferServiceImpl implements MoneyTransferService {
                 .collect(Collectors.toList());
     }
 
-    public Date getCurrentDate() { return new Date(System.currentTimeMillis()); }
+    public Date getCurrentDate() {
+        return new Date(System.currentTimeMillis());
+    }
 
     private Date getDateWeekAgo() {
         return new Date(this.getCurrentDate().getTime() - (WEEK * DAY_IN_MS));

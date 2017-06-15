@@ -20,7 +20,7 @@ public class GenDaoImpl<T> implements GenDao<T> {
     private final Class<T> type;
 
     @PersistenceContext
-    private EntityManager entityManager;
+    EntityManager entityManager;
 
     @SuppressWarnings({"unchecked"})
     public GenDaoImpl() {

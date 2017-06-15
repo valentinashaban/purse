@@ -22,4 +22,16 @@ $(document).ready(function () {
         }
     }
 
+    $('select').material_select();
+
+    $('.datepicker').pickadate({
+        selectMonths: true,
+        selectYears: 15,
+        format: "mm/dd/yyyy",
+        closeOnSelect: true,
+        closeOnClear: true,
+        min: '01/01/2010',
+        max: new Date()
+    });
+
 });

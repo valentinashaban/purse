@@ -10,45 +10,47 @@ import com.endava.service.MoneyTransferService;
 import com.endava.service.UserService;
 import com.endava.service.WherefromService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
-import javax.servlet.http.HttpServletRequest;
 import java.beans.PropertyEditorSupport;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
-
-import static com.endava.enums.Role.USER;
 
 /**
  * Created by vsaban on 4/5/2017.
  */
 @Controller
-@RequestMapping("/money-transfer")
 public class MoneyTransferController {
 
-    private UserService userService;
-    private WherefromService wherefromService;
-    private DomainService domainService;
-    private MoneyTransferService moneyTransferService;
+    private final UserService userService;
+    private final WherefromService wherefromService;
+    private final DomainService domainService;
+    private final MoneyTransferService moneyTransferService;
 
     @Autowired
-    public MoneyTransferController(WherefromService wherefromService,
-                                   DomainService domainService,
-                                   UserService userService,
-                                   MoneyTransferService moneyTransferService) {
+    public MoneyTransferController(final UserService userService,
+                                   final WherefromService wherefromService,
+                                   final DomainService domainService,
+                                   final MoneyTransferService moneyTransferService) {
+        this.userService = userService;
         this.wherefromService = wherefromService;
         this.domainService = domainService;
-        this.userService = userService;
         this.moneyTransferService = moneyTransferService;
     }
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {
-        binder.registerCustomEditor(Wherefrom.class, new PropertyEditorSupport(){
+        binder.registerCustomEditor(Wherefrom.class, new PropertyEditorSupport() {
 
             @Override
             public void setAsText(String id) throws IllegalArgumentException {
@@ -57,7 +59,7 @@ public class MoneyTransferController {
             }
         });
 
-        binder.registerCustomEditor(Domain.class, new PropertyEditorSupport(){
+        binder.registerCustomEditor(Domain.class, new PropertyEditorSupport() {
 
             @Override
             public void setAsText(String id) throws IllegalArgumentException {
@@ -65,9 +67,13 @@ public class MoneyTransferController {
                 setValue(domain);
             }
         });
+
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+        sdf.setLenient(true);
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, true));
     }
 
-    @GetMapping("/add")
+    @GetMapping("/money-transfer")
     public String addMoneyTransfer(Model model) {
         List<MoneyTransferType> transferTypes = Arrays.asList(MoneyTransferType.values());
 
@@ -81,23 +87,26 @@ public class MoneyTransferController {
         return "add-money-transfer";
     }
 
-    @Transactional
-    @PostMapping("/add")
-    public String addMoneyTransfer(@ModelAttribute MoneyTransfer moneyTransfer, HttpServletRequest req) {
-        User user = createUser();  //TODO
-        userService.saveUser(user);
+    @PostMapping("/money-transfer")
+    public String addMoneyTransfer(@ModelAttribute final MoneyTransfer moneyTransfer) {
+        final User user = userService.getAuthenticatedUser(SecurityContextHolder.getContext());
 
         moneyTransfer.setUser(user);
-
         moneyTransferService.saveMoneyTransfer(moneyTransfer);
+
         return "index";
     }
 
-    private User createUser() {
-        return User.builder()
-                   .withLogin("valera")
-                   .withPassword("111111")
-                   .withRole(USER)
-                   .build();
+    @GetMapping("/expenses")
+    public String expenses(Model model) {
+//        model.addAttribute("expenses", moneyTransferService.getExpenses());
+        return "expenses";
     }
+
+    @GetMapping("/incomes")
+    public String incomes(Model model) {
+//        model.addAttribute("expenses", moneyTransferService.getIncomes());
+        return "incomes";
+    }
+
 }

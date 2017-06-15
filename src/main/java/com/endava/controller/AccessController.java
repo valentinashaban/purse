@@ -32,17 +32,21 @@ import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 @Controller
 public class AccessController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+    private final MoneyTransferService moneyTransferService;
+    private final DomainService domainService;
+    private final WherefromService wherefromService;
 
     @Autowired
-    private MoneyTransferService moneyTransferService;
-
-    @Autowired
-    private DomainService domainService;
-
-    @Autowired
-    private WherefromService wherefromService;
+    public AccessController(final UserService userService,
+                            final MoneyTransferService moneyTransferService,
+                            final DomainService domainService,
+                            final WherefromService wherefromService) {
+        this.userService = userService;
+        this.moneyTransferService = moneyTransferService;
+        this.domainService = domainService;
+        this.wherefromService = wherefromService;
+    }
 
     @GetMapping("/login")
     public String loginPage() {
@@ -95,23 +99,6 @@ public class AccessController {
         model.addAttribute("domains", domainService.getDomains());
         model.addAttribute("wherefroms", wherefromService.getWherefroms());
         return "profile";
-    }
-
-    @GetMapping("/money-transfer")
-    public String moneyTransfer() {
-        return "add-money-transfer";
-    }
-
-    @GetMapping("/expenses")
-    public String expenses(Model model) {
-//        model.addAttribute("expenses", moneyTransferService.getExpenses());
-        return "expenses";
-    }
-
-    @GetMapping("/incomes")
-    public String incomes(Model model) {
-//        model.addAttribute("expenses", moneyTransferService.getIncomes());
-        return "incomes";
     }
 
     //TODO: validation messages
