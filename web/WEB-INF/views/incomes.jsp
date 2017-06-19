@@ -17,24 +17,24 @@
         <div class="row">
             <div class="col m6 s12 offset-m3">
                 <c:choose>
-                    <c:when test="${not empty expenses}">
+                    <c:when test="${not empty incomes}">
                         <table class="striped centered">
                             <thead>
                             <tr>
                                 <th>Type</th>
                                 <th>Amount</th>
                                 <th>Date</th>
-                                <th>Domain</th>
+                                <th>Wherefrom</th>
                             </tr>
                             </thead>
 
                             <tbody>
-                            <c:forEach items="${expenses}" var="item">
+                            <c:forEach items="${incomes}" var="item">
                                 <tr>
                                     <td>${item.type}</td>
                                     <td>${item.amount} $</td>
                                     <td>${item.date}</td>
-                                    <td>${item.description}</td>
+                                    <td>${item.wherefrom.name}</td>
                                 </tr>
                             </c:forEach>
                             </tbody>

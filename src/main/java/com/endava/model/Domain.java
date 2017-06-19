@@ -19,6 +19,6 @@ public class Domain {
     @Column(name = "id_domain")
     private Long id;
 
-    @NotEmpty
+    @NotEmpty(message = "Should not be empty")
     private String name;
 }

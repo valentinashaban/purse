@@ -12,6 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.TransactionSystemException;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -70,7 +71,14 @@ public class AccessController {
                     .withRole(Role.USER)
                     .build();
 
-            userService.saveUser(user);
+            try {
+                userService.saveUser(user);
+            } catch (TransactionSystemException e) {
+                message = "Entered incorrect data";
+                page = "registration";
+                model.addAttribute("message", message);
+                return page;
+            }
 
             page = "login";
             message = "Registration successful!";

@@ -34,7 +34,7 @@
                                     <td>${item.type}</td>
                                     <td>${item.amount}</td>
                                     <td>${item.date}</td>
-                                    <td>${item.description}</td>
+                                    <td>${item.domain.name}</td>
                                 </tr>
                             </c:forEach>
                             </tbody>

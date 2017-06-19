@@ -35,15 +35,15 @@ public class MoneyTransfer {
     @Enumerated(EnumType.STRING)
     private MoneyTransferType type;
 
-    @NotNull
-    @Min(0)
+    @NotNull(message = "Should not be empty")
+    @Min(value = 0, message = "Min value = 0")
     private Double amount;
 
-    @Size(max = 500)
+    @Size(max = 500, message = "Max size = 500")
     private String description;
 
-    @NotNull
-    @Past
+    @NotNull(message = "Should not be empty")
+    @Past(message = "Can't be the future date")
     @DateTimeFormat(pattern = "MM/dd/yyyy")
     @Temporal(TemporalType.DATE)
     private Date date;
@@ -53,11 +53,11 @@ public class MoneyTransfer {
     @JoinColumn(name = "id_user")
     private User user;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_domain")
     private Domain domain;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_wherefrom")
     private Wherefrom wherefrom;
 

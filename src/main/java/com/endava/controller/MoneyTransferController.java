@@ -89,9 +89,9 @@ public class MoneyTransferController {
 
         String page;
         if (moneyTransfer.isIncome())
-            page = "incomes";
+            page = "redirect:/incomes";
         else if (moneyTransfer.isExpense())
-            page = "expenses";
+            page = "redirect:/expenses";
         else
             page = "index";
 

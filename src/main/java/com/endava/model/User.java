@@ -33,12 +33,12 @@ public class User {
     @Column(name = "id_user")
     private Long id;
 
-    @NotEmpty
-    @Size(min = 5, max = 20)
+    @NotEmpty(message = "Should not be empty")
+    @Size(min = 5, max = 20, message = "Min size = 5, max size = 50")
     private String login;
 
-    @NotEmpty
-    @Size(min = 6, max = 10)
+    @NotEmpty(message = "Should not be empty")
+    @Size(min = 6, max = 10, message = "Min size = 6, max size = 10")
     private String password;
 
     @Email
